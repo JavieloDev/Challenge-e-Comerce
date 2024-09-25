@@ -102,12 +102,10 @@ export class ProductListComponent implements OnInit {
   }
 
   viewDetails(productId: number) {
-    this.router.navigate(['/products/details', productId]); // Navega a la página de detalles del producto
+    this.router.navigate(['/products/details', productId]);
   }
 
   addToCart(product: Product) {
-    // Implementa la lógica para agregar al carrito
     console.log('Producto agregado al carrito:', product);
-    // Aquí podrías llamar a un servicio de carrito o dispatch una acción de NGRX
   }
 }

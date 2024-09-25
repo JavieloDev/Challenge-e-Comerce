@@ -1,4 +1,3 @@
-// product.model.ts
 export interface Product {
   id: number; // Identificador único del producto
   title: string; // Título del producto

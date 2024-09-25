@@ -1,4 +1,3 @@
-// auth.state.ts
 export interface AuthState {
   isAuthenticated: boolean;
 }

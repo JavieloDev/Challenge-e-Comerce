@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
+
 @Component({
   selector: 'app-notification',
   standalone: true,
@@ -8,7 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './notification.component.scss'
 })
 export class NotificationComponent {
-  notifications: string[] = []; // Array para almacenar las notificaciones
+  notifications: string[] = [];
   showNotification = false;
   notificationTitle = 'Notificación';
   notificationMessage = 'Este es un mensaje de notificación.';
@@ -18,17 +19,18 @@ export class NotificationComponent {
     this.notificationTitle = title;
     this.notificationMessage = message;
     this.showNotification = true;
-    setTimeout(() => this.closeNotification(), 5000); // Cierra la notificación después de 5 segundos
+    setTimeout(() => this.closeNotification(), 5000);
   }
 
   closeNotification() {
     this.showNotification = false;
   }
+
   addNotification(message: string) {
-    this.notifications.push(message); // Agregar una nueva notificación
+    this.notifications.push(message);
     setTimeout(() => {
-      this.notifications.shift(); // Eliminar la notificación después de un tiempo
-    }, 3000); // Duración en milisegundos
+      this.notifications.shift();
+    }, 3000);
   }
 }
 

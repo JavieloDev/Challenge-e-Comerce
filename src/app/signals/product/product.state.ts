@@ -1,8 +1,7 @@
-// product.state.ts
-import { signal } from '@angular/core';
+import {signal} from '@angular/core';
 
 export interface ProductState {
-  products: any[]; // Cambia 'any' por el tipo de producto que estés utilizando
+  products: any[];
 }
 
 export const initialProductState: ProductState = {

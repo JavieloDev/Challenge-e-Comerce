@@ -6,9 +6,9 @@ import {Product} from "./models/product";
 import {ProductService} from "./service/product.service";
 import {Store} from "@ngrx/store";
 import {Observable, take} from "rxjs";
-import {AuthState} from "./states/auth";
-import { AppStoreModule } from './states/states.module';
-import {login, logout} from "./states/auth.action";
+import {AuthState} from "./signals/auth/auth";
+import { AppStoreModule } from './signals/signals.module';
+import {login, logout} from "./signals/auth/auth.action";
 
 @Component({
   selector: 'app-root',
@@ -58,8 +58,7 @@ export class AppComponent {
 
   loadFeaturedProducts() {
     this.productService.getProducts().subscribe((data) => {
-      // Filtrar productos con un rating alto (ejemplo: mayor o igual a 4)
-      this.featuredProducts = data.filter(product => product.rating && product.rating.rate >= 4);
+      this.featuredProducts = data.filter(product => product.rating && product.rating.rate >= 3.5);
     });
   }
   handleLoginLogout() {
@@ -74,7 +73,7 @@ export class AppComponent {
   handleCatalogClick() {
     this.isAuthenticated.subscribe(isAuthenticated => {
       if (!isAuthenticated) {
-        this.showLogin(); // Llama a la función showLogin si no está autenticado
+        this.showLogin();
       }else{
         this.router.navigate(['products']);
         this.isLoginVisible=true
@@ -86,35 +85,24 @@ export class AppComponent {
     this.isLoginVisible = true;
   }
   onLogin() {
-    this.store.dispatch(login()); // Dispatch la acción de login
-    // this.isLoginVisible = false;
+    this.store.dispatch(login());
+
   }
 
   onLogout() {
-    this.store.dispatch(logout()); // Dispatch la acción de logout
+    this.store.dispatch(logout());
   }
-
-  // login() {
-  //   this.isLoginVisible = false;
-  //   console.log(this.isAuthenticated)
-  // }
-  // logout() {
-  //   this.store.dispatch(logout()) // Cambia a false al cerrar sesión
-  //   // Aquí podrías agregar lógica adicional para manejar el cierre de sesión
-  //   console.log(this.isAuthenticated)
-  // }
 
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  animateCartIcon() {
-
-    const cartIcon = document.getElementById('cart-icon');
-    if (cartIcon) {
-      cartIcon.classList.add('animate-bounce');
-      setTimeout(() => cartIcon.classList.remove('animate-bounce'), 1000); // Duración de la animación
-    }
-  }
+  // animateCartIcon() {
+  //   const cartIcon = document.getElementById('cart-icon');
+  //   if (cartIcon) {
+  //     cartIcon.classList.add('animate-bounce');
+  //     setTimeout(() => cartIcon.classList.remove('animate-bounce'), 1000);
+  //   }
+  // }
 }

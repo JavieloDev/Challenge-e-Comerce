@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { CartState } from '../states/cart.state'; // Asegúrate de importar tu estado del carrito
-import { selectCartItems } from '../states/car.selector';
-import {AsyncPipe, CommonModule} from "@angular/common"; // Selector para obtener los artículos del carrito
+import {Component} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {CartState} from '../signals/car/cart.state';
+import {selectCartItems} from '../signals/car/car.selector';
+import {AsyncPipe, CommonModule} from "@angular/common";
 
 
 @Component({
@@ -11,13 +11,13 @@ import {AsyncPipe, CommonModule} from "@angular/common"; // Selector para obtene
   standalone: true,
   templateUrl: './car.component.html',
   imports: [
-    AsyncPipe,CommonModule
+    AsyncPipe, CommonModule
   ]
 })
 export class CarComponent {
-  cartItems$: Observable<any[]>; // Observable para los artículos del carrito
+  cartItems$: Observable<any[]>;
 
   constructor(private store: Store<{ cart: CartState }>) {
-    this.cartItems$ = this.store.select(selectCartItems); // Seleccionar los artículos del carrito
+    this.cartItems$ = this.store.select(selectCartItems);
   }
 }

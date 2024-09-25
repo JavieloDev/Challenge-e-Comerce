@@ -1,21 +1,20 @@
-// auth.service.ts
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private loggedIn = false; // Cambia esto según tu lógica de autenticación
+  private loggedIn = false;
 
   isAuthenticated(): boolean {
-    return this.loggedIn; // Devuelve true o false según el estado de autenticación
+    return this.loggedIn;
   }
 
   login() {
-    this.loggedIn = true; // Simula un inicio de sesión
+    this.loggedIn = true;
   }
 
   logout() {
-    this.loggedIn = false; // Simula un cierre de sesión
+    this.loggedIn = false;
   }
 }

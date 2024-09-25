@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,6 @@ export class NotificationService {
 
   showNotification(message: string) {
     this.notificationSource.next(message);
-    setTimeout(() => this.notificationSource.next(null), 3000); // Ocultar después de 3 segundos
+    setTimeout(() => this.notificationSource.next(null), 3000);
   }
 }

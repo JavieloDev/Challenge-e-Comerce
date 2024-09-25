@@ -1,4 +1,4 @@
-import { Directive, HostListener } from '@angular/core';
+import {Directive, HostListener} from '@angular/core';
 
 @Directive({
   selector: '[appClickLogger]',
@@ -9,7 +9,9 @@ export class ClickLoggerDirective {
   handleClick(event: Event) {
     console.log('Elemento clicado:', event);
   }
-  constructor() { }
+
+  constructor() {
+  }
 
 }
 

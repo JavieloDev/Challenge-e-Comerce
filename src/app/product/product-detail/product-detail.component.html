@@ -1,15 +1,15 @@
-<!-- Notificación -->
-<div *ngIf="notificationMessage" class="fixed top-16 right-0 m-4 p-4 bg-indigo-600 text-white rounded-lg shadow-lg z-50">
+<div *ngIf="notificationMessage"
+     class="fixed top-16 right-0 m-4 p-4 bg-indigo-600 text-white rounded-lg shadow-lg z-50">
   {{ notificationMessage }}
 </div>
 
 <div class="container mx-auto p-4 sm:p-6 lg:p-8" style="margin-top: 6%">
 
-  <!-- Flecha de retorno -->
   <div class="flex items-center mb-4">
     <a routerLink="/products" class="flex items-center text-indigo-600 hover:text-indigo-800 transition duration-300">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+           stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
       </svg>
       Volver a Productos
     </a>
@@ -17,7 +17,6 @@
 
   <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
     <div class="md:flex">
-      <!-- Imagen del producto -->
       <div class="md:flex-shrink-0 md:w-1/2">
         <img [src]="product?.image" alt="{{ product?.title }}"
              class="w-full h-64 md:h-full object-cover object-center transition-transform duration-300 hover:scale-105">
@@ -32,7 +31,6 @@
             <p class="text-gray-600 mb-6">{{ product?.description }}</p>
           </div>
 
-          <!-- Sección de acciones -->
           <div class="mt-auto">
             <div class="flex items-center mb-4">
               <span class="text-gray-600 mr-2">Cantidad:</span>
@@ -50,52 +48,4 @@
     </div>
   </div>
 </div>
-<!--<div class="container mx-auto p-4 sm:p-6 lg:p-8">-->
-<!--  <div *ngIf="notificationMessage" class="fixed top-0 right-0 m-4 p-4 bg-indigo-600 text-white rounded-lg shadow-lg">-->
-<!--    {{ notificationMessage }}-->
-<!--  </div>-->
-<!--  &lt;!&ndash; Flecha de retorno &ndash;&gt;-->
-<!--  <div class="flex items-center mb-4">-->
-<!--    <a routerLink="/products" class="flex items-center text-indigo-600 hover:text-indigo-800 transition duration-300">-->
-<!--      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
-<!--        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />-->
-<!--      </svg>-->
-<!--      Volver a Productos-->
-<!--    </a>-->
-<!--  </div>-->
 
-<!--  <div class="bg-white rounded-2xl shadow-lg overflow-hidden">-->
-<!--    <div class="md:flex">-->
-<!--      &lt;!&ndash; Imagen del producto &ndash;&gt;-->
-<!--      <div class="md:flex-shrink-0 md:w-1/2">-->
-<!--        <img [src]="product?.image" alt="{{ product?.title }}"-->
-<!--             class="w-full h-64 md:h-full object-cover object-center transition-transform duration-300 hover:scale-105">-->
-<!--      </div>-->
-
-<!--      &lt;!&ndash; Detalles del producto &ndash;&gt;-->
-<!--      <div class="p-6 md:p-8 md:w-1/2">-->
-<!--        <div class="flex flex-col h-full justify-between">-->
-<!--          <div>-->
-<!--            <h2 class="text-2xl sm:text-3xl font-bold mb-2 text-gray-800">{{ product?.title }}</h2>-->
-<!--            <p class="text-2xl font-bold text-indigo-600 mb-4">${{ product?.price | number:'1.2-2' }}</p>-->
-<!--            <p class="text-gray-600 mb-6">{{ product?.description }}</p>-->
-<!--          </div>-->
-
-<!--          &lt;!&ndash; Sección de acciones &ndash;&gt;-->
-<!--          <div class="mt-auto">-->
-<!--            <div class="flex items-center mb-4">-->
-<!--              <span class="text-gray-600 mr-2">Cantidad:</span>-->
-<!--              <button (click)="decreaseQuantity()" class="bg-gray-200 text-gray-700 px-2 py-1 rounded-l">-</button>-->
-<!--              <span class="bg-gray-100 px-4 py-1">{{ quantity }}</span>-->
-<!--              <button (click)="increaseQuantity()" class="bg-gray-200 text-gray-700 px-2 py-1 rounded-r">+</button>-->
-<!--            </div>-->
-<!--            <button (click)="addToCart(product)"-->
-<!--                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">-->
-<!--              Agregar al Carrito-->
-<!--            </button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->

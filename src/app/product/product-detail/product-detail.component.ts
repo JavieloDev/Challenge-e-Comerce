@@ -4,14 +4,14 @@ import {ProductService} from '../../service/product.service';
 import {CommonModule} from "@angular/common";
 import {Product} from '../../models/product';
 import {NotificationService} from "../../service/notification.service";
-import {addItem} from "../../states/cart.action";
-import { Store } from '@ngrx/store';
-import {AppStoreModule} from "../../states/states.module";
+import {addItem} from "../../signals/car/cart.action";
+import {Store} from '@ngrx/store';
+import {AppStoreModule} from "../../signals/signals.module";
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink,AppStoreModule],
+  imports: [CommonModule, RouterLink, AppStoreModule],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss'
 })
@@ -22,7 +22,7 @@ export class ProductDetailComponent implements OnInit {
   notificationMessage: string | null = null;
 
 
-  constructor(private route: ActivatedRoute,private store: Store, private productService: ProductService,private notificationService: NotificationService) {
+  constructor(private route: ActivatedRoute, private store: Store, private productService: ProductService, private notificationService: NotificationService) {
     this.notificationService.currentNotification.subscribe(message => {
       this.notificationMessage = message;
     });
@@ -45,6 +45,7 @@ export class ProductDetailComponent implements OnInit {
       }
     );
   }
+
   increaseQuantity() {
     this.quantity++;
   }
@@ -55,12 +56,11 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
-  addToCart(product: Product ) {
-    this.store.dispatch(addItem({ item: product }));
+  addToCart(product: Product) {
+    this.store.dispatch(addItem({item: product}));
     if (product) {
       this.notificationService.showNotification(`${product.title} ha sido agregado al carrito.`);
       console.log(`Agregando ${this.quantity} ${product.title} al carrito`);
-      // Aquí puedes llamar a tu servicio de carrito o dispatch una acción de NGRX
     }
   }
 
