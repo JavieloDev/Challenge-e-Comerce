@@ -1,0 +1,12 @@
+<div class="car-container">
+  <h2 class="text-xl font-bold">Artículos en el Carrito</h2>
+  <ul>
+    <li *ngFor="let item of (cartItems$ | async)">
+      <div class="flex justify-between items-center">
+        <span>{{ item.name }}</span> <!-- Cambia 'name' por la propiedad correspondiente -->
+        <span>${{ item.price }}</span> <!-- Cambia 'price' por la propiedad correspondiente -->
+      </div>
+    </li>
+    <li *ngIf="(cartItems$ | async)?.length === 0">No hay artículos en el carrito.</li>
+  </ul>
+</div>

@@ -1,0 +1,9 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <input formControlName="query" placeholder="Buscar productos" />
+  <div *ngIf="searchForm.get('query')?.invalid && (searchForm.get('query')?.dirty || searchForm.get('query')?.touched)">
+    <small *ngIf="searchForm.get('query')?.errors?.required">El campo es obligatorio.</small>
+    <small *ngIf="searchForm.get('query')?.errors?.minlength">Mínimo de caracteres es {{ searchForm.get('query')?.errors?.minlength.requiredLength }}.</small>
+  </div>
+
+  <button type="submit" [disabled]="searchForm.invalid">Buscar</button>
+</form>
