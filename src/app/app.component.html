@@ -83,7 +83,7 @@
               <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div class="rounded-md shadow">
                   <a (click)="handleCatalogClick()"
-                     class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+                     class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10 cursor-pointer">
                     Ver catálogo
                   </a>
                 </div>
@@ -98,33 +98,33 @@
              alt="Producto destacado - Nombre del Producto">
       </div>
     </div>
-    <div class="bg-white">
-      <div class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h2 class="text-3xl font-extrabold tracking-tight text-gray-900">Productos destacados</h2>
-        <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          <div *ngFor="let product of featuredProducts" class="group relative">
-            <div
-              class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
+
+    <div class="bg-slate-400">
+      <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 text-center mb-8">Productos destacados</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div *ngFor="let product of featuredProducts"
+               class="relative bg-white rounded-xl shadow-md overflow-hidden transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl cursor-pointer">
+            <div class="relative group">
               <img [src]="product.image" [alt]="product.title"
-                   class="w-full h-full object-center object-cover lg:w-full lg:h-full">
-            </div>
-            <div class="mt-4 flex justify-between">
-              <div>
-                <h3 class="text-sm text-gray-700">
-                  <a [routerLink]="['/product', product.id]">
-                    <span aria-hidden="true" class="absolute inset-0"></span>
-                    {{ product.title }}
-                  </a>
-                </h3>
-                <p class="mt-1 text-sm text-gray-500">{{ product.category }}</p>
+                   class="w-full h-56 sm:h-64 object-cover object-center transition duration-300 ease-in-out">
+              <div class="absolute top-0 right-0 m-2 px-2 py-1 bg-indigo-600 text-white text-sm font-semibold rounded">
+                ${{ product.price | number:'1.2-2' }}
               </div>
-              <p class="text-sm font-medium text-gray-900">${{ product.price }}</p>
+              <div
+                class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
+                <h3 class="text-lg font-semibold text-white mb-2 line-clamp-2 text-center">{{ product.title }}</h3>
+                <p
+                  class="text-sm text-white mb-4 line-clamp-3 text-center">{{ product.description | shortDescription:80 }}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
+
 
   <main *ngIf="isLoginVisible" class="flex-grow container mx-auto p-8 relative" style="margin-top: 10%">
     <!-- Fondo con efectos -->
@@ -146,13 +146,14 @@
   <div *ngIf="!isLoginVisible">
     <section class="bg-white py-12">
       <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-8 text-center">Lo que dicen nuestros clientes</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div *ngFor="let review of reviews" class="bg-gray-100 p-6 rounded-lg shadow-md">
+        <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 text-center mb-8">Lo que dicen nuestros clientes</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div *ngFor="let review of reviews"
+               class="bg-gray-100 p-6 rounded-lg shadow-md transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl">
             <div class="flex items-center mb-4">
               <img [src]="review.avatar" alt="{{ review.name }}" class="w-12 h-12 rounded-full mr-4">
               <div>
-                <h3 class="font-bold">{{ review.name }}</h3>
+                <h3 class="font-bold text-gray-800">{{ review.name }}</h3>
                 <p class="text-gray-600">{{ review.location }}</p>
               </div>
             </div>
@@ -161,15 +162,21 @@
         </div>
       </div>
     </section>
+
     <section class="bg-indigo-600 py-12">
       <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold text-white mb-4">¿Listo para mejorar tu estilo?</h2>
+        <h2 class="text-3xl font-extrabold tracking-tight text-white text-center mb-8">¿Listo para mejorar tu
+          estilo?</h2>
         <p class="text-lg text-indigo-200 mb-8">Descubre nuestra amplia gama de productos y encuentra exactamente lo que
           necesitas.</p>
-        <a routerLink="/products"
-           class="inline-block bg-white text-indigo-600 font-bold py-3 px-6 rounded-lg hover:bg-gray-200 transition-colors duration-300">
-          Ver Catálogo
-        </a>
+        <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-center">
+          <div class="rounded-md shadow">
+            <a (click)="handleCatalogClick()"
+               class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-200 md:py-4 md:text-lg md:px-10 cursor-pointer">
+              Ver catálogo
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   </div>

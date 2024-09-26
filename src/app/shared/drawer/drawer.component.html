@@ -1,0 +1,32 @@
+
+
+<div class="fixed inset-y-0 left-0 z-50 w-[320px] bg-white p-6 shadow-lg transition-transform transform -translate-x-full" >
+  <h2 class="text-lg font-bold mb-4">Filtrar Productos</h2>
+
+  <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+    <label class="block mb-2">
+      Categoría:
+      <select formControlName="category" class="border rounded-lg p-2 w-full">
+        <option *ngFor="let categories of categories" [value]="categories">{{categories}}</option>
+      </select>
+    </label>
+
+    <label class="block mb-4">
+      Rango de Precio:
+      <input type="text" formControlName="priceRange" placeholder="Ej. 10-100" class="border rounded-lg p-2 w-full">
+    </label>
+
+    <button
+      type="submit"
+      class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200">
+      Aplicar Filtros
+    </button>
+
+    <button
+      type="button"
+      (click)="onClose()"
+      class="bg-blue-500 text-white py-2 px-4 ml-2 rounded hover:bg-blue-600 transition duration-200">
+      Cerrar
+    </button>
+  </form>
+</div>

@@ -11,6 +11,8 @@ import { AppStoreModule } from './signals/signals.module';
 import {login, logout} from "./signals/auth/auth.action";
 import {CartState} from "./signals/car/cart.state";
 import {CartService} from "./service/car.service";
+import {ShortDescriptionPipe} from "./shared/pipe/short-description.pipe";
+import {NotificationService} from "./service/notification.service";
 
 
 export interface CartItem {
@@ -20,7 +22,7 @@ export interface CartItem {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NotificationComponent, RouterLink, NgClass,CommonModule,AppStoreModule],
+    imports: [RouterOutlet, NotificationComponent, RouterLink, NgClass, CommonModule, AppStoreModule, ShortDescriptionPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -32,6 +34,7 @@ export class AppComponent {
   isLoginVisible = false;
   isAuthenticated: Observable<boolean>;
   products: Product[] = [];
+  quantity: number = 1;
   private _car: CartItem[] =[]
 
 
@@ -57,7 +60,11 @@ export class AppComponent {
   ];
 
 
-  constructor(private productService: ProductService,private router: Router,private store: Store<{ auth: AuthState,cart :CartState }>,private cartService: CartService) {
+  constructor(private productService: ProductService,
+              private router: Router,
+              private store: Store<{ auth: AuthState,cart :CartState }>,
+              private cartService: CartService,
+              private notificationService: NotificationService) {
     this.isAuthenticated = this.store.select(state => state.auth.isAuthenticated);
     this.cartService.cartItems$.subscribe(items => {
       this._car = items;
@@ -123,7 +130,21 @@ export class AppComponent {
   //     setTimeout(() => cartIcon.classList.remove('animate-bounce'), 1000);
   //   }
   // }
-
+  viewDetails(productId: number) {
+    this.router.navigate(['/products/details', productId]);
+  }
+  addToCart(product: Product){
+    if (this.isAuthenticated){
+      this.cartService.addToCart(product, this.quantity);
+      const currentCart = this.cartService.getCartItems();
+      if (product) {
+        this.notificationService.showNotification(`${product.title} ha sido agregado al carrito.`);
+        console.log(`Agregando ${this.quantity} ${product.title} al carrito`);
+      }
+    }else{
+      this.notificationService.showNotification('Por favor, inicia sesión para agregar productos al carrito.');
+    }
+  }
 
 
 }
