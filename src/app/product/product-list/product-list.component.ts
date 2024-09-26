@@ -122,7 +122,6 @@ export class ProductListComponent implements OnInit {
     const currentCart = this.cartService.getCartItems();
     if (product) {
       this.notificationService.showNotification(`${product.title} ha sido agregado al carrito.`);
-      console.log(`Agregando ${this.quantity} ${product.title} al carrito`);
     }
   }
 
@@ -132,7 +131,6 @@ export class ProductListComponent implements OnInit {
 
   onFilterChange(filters: any) {
     const {category, priceRange} = filters;
-    console.log(filters)
     const [minPrice, maxPrice] = priceRange && priceRange.match(/^\d+-\d+$/)
       ? priceRange.split('-').map(Number)
       : [null, null];
@@ -143,14 +141,16 @@ export class ProductListComponent implements OnInit {
       console.log(matchesCategory, matchesPriceRange)
       return matchesCategory && matchesPriceRange;
     });
-    console.log(this.filteredProducts)
     if (this.filteredProducts.length === 0) {
       this.filteredProducts = this.products;
-
     }else {
       this.categories = [category]
       this.productsByCategory[category] = this.filteredProducts;
     }
+    setTimeout(() => {
+      this.categories = Array.from(new Set(this.products.map(product => product.category)))
+      console.log(this.categories);
+    }, 4000);
   }
 
   onDrawerClose() {

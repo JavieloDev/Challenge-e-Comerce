@@ -29,7 +29,12 @@ export class CartService {
 
     this.cartItems.next(currentItems); // Actualiza el carrito con los nuevos valores
   }
+  removeFromCart(product: Product) {
+    const currentItems = this.cartItems.value; // Obtiene los items actuales del carrito
+    const updatedItems = currentItems.filter(item => item.product.id !== product.id); // Filtra el producto a eliminar
 
+    this.cartItems.next(updatedItems); // Actualiza el carrito con los nuevos valores
+  }
   // Método para obtener los items del carrito
   getCartItems() {
     return this.cartItems.asObservable();

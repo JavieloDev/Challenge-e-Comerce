@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {CommonModule, NgForOf} from "@angular/common";
 
 
@@ -22,8 +22,8 @@ export class DrawerComponent {
 
   constructor(private fb: FormBuilder) {
     this.filterForm = this.fb.group({
-      category: this.categories,
-      priceRange: [''],
+      category: [this.categories,[Validators.required]],
+      priceRange: ['',[Validators.required]],
     });
   }
 
@@ -32,6 +32,10 @@ export class DrawerComponent {
   }
 
   applyFilters() {
-    this.filterChange.emit(this.filterForm.value);
+    if (this.filterForm.valid) {
+      this.filterChange.emit(this.filterForm.value);
+    }else {
+      console.log('Formulario no válido');
+    }
   }
 }

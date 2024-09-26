@@ -6,6 +6,7 @@ import { AppState } from '../signals/app.state'; // Importa la interfaz del esta
 import { selectCartItems } from '../signals/car/car.selector';
 import {AsyncPipe, CommonModule, DecimalPipe} from "@angular/common";
 import {CartService} from "../service/car.service";
+import {Product} from "../models/product";
 
 
 export interface CartItem {
@@ -32,7 +33,6 @@ export class CarComponent {
 
   constructor(private cartService: CartService, private router: Router) {
     this._car = this.cartService.cartItems$;
-    console.log(this._car)
   }
 
   checkout() {
@@ -51,5 +51,7 @@ export class CarComponent {
       }
     });
   }
-
+  removeFromCart(product: any) {
+    this.cartService.removeFromCart(product);
+  }
 }

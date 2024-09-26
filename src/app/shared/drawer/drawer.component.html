@@ -8,12 +8,21 @@
               class="border rounded-lg p-2 w-full bg-gray-800 text-white focus:outline-none focus:ring focus:border-indigo-500 shadow-sm">
         <option *ngFor="let categories of categories" [value]="categories">{{categories}}</option>
       </select>
+      <div
+        *ngIf="filterForm.get('category')?.invalid && (filterForm.get('category')?.dirty || filterForm.get('category')?.touched)">
+        <small *ngIf="filterForm.get('category')?.errors?.['required']" class="text-red-500">Debe seleccionar una categoría.</small>
+      </div>
     </label>
 
     <label class="block mb-4 text-white">
       Rango de Precio:
       <input type="text" formControlName="priceRange" placeholder="Ej. 10-100"
              class="border rounded-lg p-2 w-full bg-gray-800 text-white focus:outline-none focus:ring focus:border-indigo-500 shadow-sm">
+      <div
+        *ngIf="filterForm.get('priceRange')?.invalid && (filterForm.get('priceRange')?.dirty || filterForm.get('priceRange')?.touched)">
+        <small *ngIf="filterForm.get('priceRange')?.errors?.['required']" class="text-red-500">El campo es
+          obligatorio.</small>
+      </div>
     </label>
 
     <div class="flex flex-col sm:flex-row sm:space-x-2">
