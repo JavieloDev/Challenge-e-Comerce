@@ -9,7 +9,7 @@ import {CartService} from "../../service/car.service";
 import {NotificationService} from "../../service/notification.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {DrawerComponent} from "../../shared/drawer/drawer.component";
-import {loadProducts} from "../../signals/product/product.action";
+
 
 @Component({
   selector: 'app-product-list',

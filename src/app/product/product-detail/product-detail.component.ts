@@ -4,10 +4,6 @@ import {ProductService} from '../../service/product.service';
 import {CommonModule} from "@angular/common";
 import {Product} from '../../models/product';
 import {NotificationService} from "../../service/notification.service";
-import {addItem} from "../../signals/car/cart.action";
-import {Store} from '@ngrx/store';
-import {AppStoreModule} from "../../signals/signals.module";
-import {CartState} from "../../signals/car/cart.state";
 import {CartService} from "../../service/car.service";
 
 
@@ -33,11 +29,11 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.productId = +params.get('id')!; // Obtén el ID del producto
+      this.productId = +params.get('id')!;
     });
 
     this.route.queryParamMap.subscribe(queryParams => {
-      this.quantity = +queryParams.get('quantity')!; // Obtén la cantidad deseada
+      this.quantity = +queryParams.get('quantity')!;
       console.log(`Cantidad deseada para comprar: ${this.quantity}`);
     });
 
@@ -69,8 +65,6 @@ export class ProductDetailComponent implements OnInit {
 
   addToCart(product: Product) {
     this.cartService.addToCart(product, this.quantity);
-
-    // this.store.dispatch(addItem({item: product}));
     const currentCart = this.cartService.getCartItems();
     if (product) {
       this.notificationService.showNotification(`${product.title} ha sido agregado al carrito.`);

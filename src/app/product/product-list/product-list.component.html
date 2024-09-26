@@ -1,96 +1,117 @@
-<div class="flex">
-<div *ngIf="showDrawer" class="relative inset-y-0 z-50 left-80 transition-transform duration-300 ease-in-out transform"
-     [ngClass]="{'translate-x-0': !showDrawer, '-translate-x-full': showDrawer}">
-  <app-drawer (filterChange)="onFilterChange($event)" (closeDrawer)="onDrawerClose()" [categories]="categories"></app-drawer>
-</div>
-
-
-<!-- Contenedor principal -->
-<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow transition-all duration-300 ease-in-out"
-     [ngClass]="{'ml-[320px]': showDrawer, 'ml-0': !showDrawer}">
-  <div *ngIf="!showDrawer">
-    <h1 class="text-xl font-bold mb-4">Filtrar de Productos</h1>
-    <button
-      (click)="toggleDrawer()"
-      class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200 mb-4">
-      Filtrar Productos
-    </button>
+<div class="flex mt-24 ">
+  <div *ngIf="showDrawer"
+       class="relative inset-y-0 z-0  transition-transform duration-300 ease-in-out transform "
+       [ngClass]="{'translate-x-0': !showDrawer, '-translate-x-full': showDrawer,'left-36': showDrawer, 'lg:left-80 ': showDrawer,'w-[13px]': showDrawer ,'lm:w-[0]': showDrawer}">
+    <app-drawer (filterChange)="onFilterChange($event)" (closeDrawer)="onDrawerClose()"
+                [categories]="categories"></app-drawer>
   </div>
-  <div *ngIf="!showDrawer" class="relative w-full overflow-hidden py-8">
-    <div #carousel class="flex transition-transform duration-500 ease-in-out">
-      <div *ngFor="let product of featuredProducts"
-           class="w-1/3 flex-shrink-0 px-2 transition-all duration-500 ease-in-out">
-        <div class="relative group cursor-pointer bg-white rounded-xl shadow-lg overflow-hidden h-64"
-             (click)="viewDetails(product.id)">
-          <img [src]="product.image" [alt]="product.title"
-               class="w-full h-full object-contain transition duration-300 ease-in-out transform group-hover:scale-105">
-          <div
-            class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center">
-            <p class="text-white text-center font-semibold px-4 text-sm mb-2">{{ product.title }}</p>
-            <p class="text-white font-bold text-lg">${{ product.price }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <button (click)="prevSlide()"
-            class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 focus:outline-none transition duration-300 ease-in-out">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24"
-           stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-      </svg>
-    </button>
-    <button (click)="nextSlide()"
-            class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 focus:outline-none transition duration-300 ease-in-out">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24"
-           stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-      </svg>
-    </button>
 
-    <div class="absolute bottom-2 left-0 right-0 flex justify-center space-x-2">
-      <button *ngFor="let product of featuredProducts; let i = index"
-              (click)="goToSlide(i)"
-              class="w-2 h-2 rounded-full bg-white bg-opacity-50 hover:bg-opacity-75 focus:outline-none transition duration-300 ease-in-out"
-              [ngClass]="{'bg-indigo-600': i === currentSlide}">
+  <div
+    class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow transition-all duration-300 ease-in-out border border-gray-300 bg-white shadow-md rounded-lg"
+    [ngClass]="{'ml-0': !showDrawer, 'ml-[130px]': showDrawer, 'lg:ml-[300px]': showDrawer}">
+    <div *ngIf="!showDrawer">
+      <button
+        (click)="toggleDrawer()"
+        class="flex items-center bg-gray-900 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200 mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+             stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 3h18v2H3V3zM3 10h18v2H3v-2zM3 17h18v2H3v-2z"/>
+        </svg>
+        Filtrar Productos
       </button>
     </div>
-  </div>
 
-  <h2 class="text-3xl sm:text-4xl font-bold mb-8 text-center text-gray-800">Catálogo de Productos</h2>
-  <div *ngFor="let category of categories" class="mb-8">
-    <h2 class="text-2xl font-bold mb-4 text-gray-800">{{ category | titlecase }}</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      <div *ngFor="let product of productsByCategory[category]"
-           class="bg-white rounded-xl shadow-md overflow-hidden transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl">
-        <div class="relative">
-          <img [src]="product.image" alt="{{ product.title }}"
-               class="w-full h-56 sm:h-64 object-cover object-center">
-          <div class="absolute top-0 right-0 m-2 px-2 py-1 bg-indigo-600 text-white text-sm font-semibold rounded">
-            ${{ product.price | number:'1.2-2' }}
+    <div *ngIf="!showDrawer" class="relative w-full overflow-hidden py-8">
+      <div class="relative overflow-hidden">
+        <div #carousel class="carousel flex transition-transform duration-500 ease-in-out"
+             [style.transform]="'translateX(' + (-currentSlide * (100 / featuredProducts.length)) + '%)'">
+          <div *ngFor="let product of featuredProducts; let i = index"
+               class="carousel-item flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-2 mr-8">
+            <div
+              class="relative group cursor-pointer bg-white rounded-xl shadow-lg overflow-hidden h-64 border border-gray-200 transition-transform duration-300 ease-in-out transform hover:shadow-xl">
+              <img [src]="product.image" [alt]="product.title"
+                   class="w-full h-full object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
+              <div
+                class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center">
+                <p class="text-white text-center font-semibold px-4 text-sm mb-1">{{ product.title }}</p>
+                <p class="text-white font-bold text-lg">${{ product.price }}</p>
+                <p class="text-white text-center px-4 text-sm mt-1">{{ product.description | shortDescription:40 }}</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="p-4">
-          <h3 class="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">{{ product.title }}</h3>
-          <p class="text-gray-600 mb-4 line-clamp-3">{{ product.description | shortDescription:80 }}</p>
-          <div class="flex justify-between items-center">
-            <button (click)="viewDetails(product.id)"
-                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300 ease-in-out flex items-center">
-              <span>Ver Detalles</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd"
-                      d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                      clip-rule="evenodd"/>
-              </svg>
-            </button>
-            <button (click)="addToCart(product)"
-                    class="text-indigo-600 hover:text-indigo-800 transition duration-300 ease-in-out">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                   stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-              </svg>
-            </button>
+
+        <button (click)="prevSlide()"
+                class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 focus:outline-none transition duration-300 ease-in-out">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+
+        <button (click)="nextSlide()"
+                class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 focus:outline-none transition duration-300 ease-in-out">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </button>
+
+        <div class="absolute bottom-2 left-0 right-0 flex justify-center space-x-2">
+          <button *ngFor="let product of featuredProducts; let i = index"
+                  (click)="goToSlide(i)"
+                  class="w-2 h-2 rounded-full bg-white bg-opacity-50 hover:bg-opacity-75 focus:outline-none transition duration-300 ease-in-out"
+                  [ngClass]="{'bg-indigo-600': i === currentSlide}">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="text-3xl sm:text-4xl font-bold mb-8 text-center text-gray-800">Catálogo de Productos</h2>
+    <div *ngFor="let category of categories" class="mb-8">
+      <div class="flex items-center mb-4">
+        <hr class="flex-grow border-gray-300 shadow-sm">
+        <h2 class="text-2xl font-bold mx-4 text-gray-800 shadow-md p-3 mb-3 rounded">{{ category | titlecase }}</h2>
+        <hr class="flex-grow border-gray-300 shadow-sm">
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div *ngFor="let product of productsByCategory[category]"
+             class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl border border-gray-200">
+          <div class="relative">
+            <img [src]="product.image" alt="{{ product.title }}"
+                 class="w-full h-40 sm:h-56 object-cover object-center">
+            <div class="absolute top-0 right-0 m-2 px-2 py-1 bg-gray-600 text-white text-xs font-semibold rounded">
+              ${{ product.price | number:'1.2-2' }}
+            </div>
+          </div>
+          <div class="p-2 sm:p-4">
+            <h3 class="text-sm sm:text-lg font-semibold text-gray-800 mb-1 line-clamp-2">{{ product.title }}</h3>
+            <p
+              class="text-gray-600 mb-2 line-clamp-3 text-xs sm:text-sm">{{ product.description | shortDescription:80 }}</p>
+            <div class="flex justify-between items-center">
+              <button (click)="viewDetails(product.id)"
+                      class="bg-gray-900 hover:bg-indigo-700 text-white font-medium py-1 px-2 sm:py-2 sm:px-4 rounded-lg transition duration-300 ease-in-out flex items-center">
+                <span>Ver Detalles</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 sm:h-5 w-4 sm:w-5 ml-1" viewBox="0 0 20 20"
+                     fill="currentColor">
+                  <path fill-rule="evenodd"
+                        d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"/>
+                </svg>
+              </button>
+              <button (click)="addToCart(product)"
+                      class="text-gray-900 hover:text-indigo-800 transition duration-300 ease-in-out">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 sm:h-6 w-5 sm:w-6" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
@@ -98,4 +119,4 @@
   </div>
 </div>
 
-</div>
+

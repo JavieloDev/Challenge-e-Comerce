@@ -1,32 +1,33 @@
-
-
-<div class="fixed inset-y-0 left-0 z-50 w-[320px] bg-white p-6 shadow-lg transition-transform transform -translate-x-full" >
-  <h2 class="text-lg font-bold mb-4">Filtrar Productos</h2>
+<div class="fixed inset-y-0  z-50 lg:w-[320px]  bg-gray-900 rounded-l-lg p-6  shadow-lg transition-transform transform -translate-x-full ">
+  <h2 class="text-lg font-bold mb-4 text-white">Filtrar Productos</h2>
 
   <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
-    <label class="block mb-2">
+    <label class="block mb-2 text-white">
       Categoría:
-      <select formControlName="category" class="border rounded-lg p-2 w-full">
+      <select formControlName="category"
+              class="border rounded-lg p-2 w-full bg-gray-800 text-white focus:outline-none focus:ring focus:border-indigo-500 shadow-sm">
         <option *ngFor="let categories of categories" [value]="categories">{{categories}}</option>
       </select>
     </label>
 
-    <label class="block mb-4">
+    <label class="block mb-4 text-white">
       Rango de Precio:
-      <input type="text" formControlName="priceRange" placeholder="Ej. 10-100" class="border rounded-lg p-2 w-full">
+      <input type="text" formControlName="priceRange" placeholder="Ej. 10-100"
+             class="border rounded-lg p-2 w-full bg-gray-800 text-white focus:outline-none focus:ring focus:border-indigo-500 shadow-sm">
     </label>
 
-    <button
-      type="submit"
-      class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200">
-      Aplicar Filtros
-    </button>
-
-    <button
-      type="button"
-      (click)="onClose()"
-      class="bg-blue-500 text-white py-2 px-4 ml-2 rounded hover:bg-blue-600 transition duration-200">
-      Cerrar
-    </button>
+    <div class="flex flex-col sm:flex-row sm:space-x-2">
+      <button
+        type="submit"
+        class="bg-gray-600 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200 w-full sm:w-auto">
+        Aplicar Filtros
+      </button>
+      <button
+        type="button"
+        (click)="onClose()"
+        class="bg-gray-400 text-white py-2 px-4 rounded hover:bg-red-600 transition duration-200 w-full sm:w-auto mt-2 sm:mt-0">
+        Cerrar
+      </button>
+    </div>
   </form>
 </div>

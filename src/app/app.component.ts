@@ -29,12 +29,10 @@ export interface CartItem {
 export class AppComponent {
   title = 'e-commerce-app';
   isMenuOpen = false;
-  notificationMessage: string | null = null;
   featuredProducts: any[] = [];
   isLoginVisible = false;
   isAuthenticated: Observable<boolean>;
   products: Product[] = [];
-  quantity: number = 1;
   private _car: CartItem[] =[]
 
 
@@ -73,7 +71,6 @@ export class AppComponent {
 
   get productos(){
     return this._car
-    console.log(this._car)
   }
 
   ngOnInit() {
@@ -109,10 +106,10 @@ export class AppComponent {
   showLogin() {
     this.isLoginVisible = true;
   }
-  onLogin() {
-    this.store.dispatch(login());
-
-  }
+  // onLogin() {
+  //   this.store.dispatch(login());
+  //
+  // }
 
   onLogout() {
     this.store.dispatch(logout());
@@ -123,28 +120,22 @@ export class AppComponent {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  // animateCartIcon() {
-  //   const cartIcon = document.getElementById('cart-icon');
-  //   if (cartIcon) {
-  //     cartIcon.classList.add('animate-bounce');
-  //     setTimeout(() => cartIcon.classList.remove('animate-bounce'), 1000);
+
+  // viewDetails(productId: number) {
+  //   this.router.navigate(['/products/details', productId]);
+  // }
+  // addToCart(product: Product){
+  //   if (this.isAuthenticated){
+  //     this.cartService.addToCart(product, this.quantity);
+  //     const currentCart = this.cartService.getCartItems();
+  //     if (product) {
+  //       this.notificationService.showNotification(`${product.title} ha sido agregado al carrito.`);
+  //       console.log(`Agregando ${this.quantity} ${product.title} al carrito`);
+  //     }
+  //   }else{
+  //     this.notificationService.showNotification('Por favor, inicia sesión para agregar productos al carrito.');
   //   }
   // }
-  viewDetails(productId: number) {
-    this.router.navigate(['/products/details', productId]);
-  }
-  addToCart(product: Product){
-    if (this.isAuthenticated){
-      this.cartService.addToCart(product, this.quantity);
-      const currentCart = this.cartService.getCartItems();
-      if (product) {
-        this.notificationService.showNotification(`${product.title} ha sido agregado al carrito.`);
-        console.log(`Agregando ${this.quantity} ${product.title} al carrito`);
-      }
-    }else{
-      this.notificationService.showNotification('Por favor, inicia sesión para agregar productos al carrito.');
-    }
-  }
 
 
 }

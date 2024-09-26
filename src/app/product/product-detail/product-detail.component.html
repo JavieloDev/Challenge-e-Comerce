@@ -3,43 +3,42 @@
   {{ notificationMessage }}
 </div>
 
-<div class="container mx-auto p-4 sm:p-6 lg:p-8" style="margin-top: 6%">
-
-  <div class="flex items-center mb-4">
-    <a routerLink="/products" class="flex items-center text-indigo-600 hover:text-indigo-800 transition duration-300">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
-           stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-      </svg>
-      Volver a Productos
-    </a>
-  </div>
-
+<div class="container mx-auto p-4 sm:p-6 lg:p-8 mt-24 ">
   <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+    <div class="flex items-center mb-4" style="margin-top: 16px;
+    margin-left: 20px;">
+      <a routerLink="/products" class="flex items-center text-indigo-600 hover:text-indigo-800 transition duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+             stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Volver a Productos
+      </a>
+    </div>
     <div class="md:flex">
-      <div class="md:flex-shrink-0 md:w-1/2">
+      <div class="md:flex-shrink-0 md:w-1/2 h-auto">
         <img [src]="product?.image" alt="{{ product?.title }}"
-             class="w-full h-64 md:h-full object-cover object-center transition-transform duration-300 hover:scale-105">
+             class="w-full lg:h-auto md:h-44 object-cover object-center transition-transform duration-300 hover:scale-105">
       </div>
 
       <!-- Detalles del producto -->
-      <div class="p-6 md:p-8 md:w-1/2">
+      <div class="p-4 md:p-8 md:w-1/2">
         <div class="flex flex-col h-full justify-between">
           <div>
-            <h2 class="text-2xl sm:text-3xl font-bold mb-2 text-gray-800">{{ product?.title }}</h2>
-            <p class="text-2xl font-bold text-indigo-600 mb-4">${{ product?.price | number:'1.2-2' }}</p>
-            <p class="text-gray-600 mb-6">{{ product?.description }}</p>
+            <h2 class="text-xl sm:text-2xl font-bold mb-2 text-gray-800">{{ product?.title }}</h2>
+            <p class="text-xl font-bold text-gray-600 mb-4">${{ product?.price | number:'1.2-2' }}</p>
+            <p class="text-gray-600 mb-6 text-sm sm:text-base">{{ product?.description }}</p>
           </div>
 
           <div class="mt-auto">
             <div class="flex items-center mb-4">
-              <span class="text-gray-600 mr-2">Cantidad:</span>
-              <button (click)="decreaseQuantity()" class="bg-gray-200 text-gray-700 px-2 py-1 rounded-l">-</button>
-              <span class="bg-gray-100 px-4 py-1">{{ quantity }}</span>
-              <button (click)="increaseQuantity()" class="bg-gray-200 text-gray-700 px-2 py-1 rounded-r">+</button>
+              <span class="text-gray-800 mr-2">Cantidad:</span>
+              <button (click)="decreaseQuantity()" class="bg-gray-600 text-white px-2 py-1 rounded-l">-</button>
+              <span class="bg-gray-800  text-white px-4 py-1">{{ quantity }}</span>
+              <button (click)="increaseQuantity()" class="bg-gray-600 text-white px-2 py-1 rounded-r">+</button>
             </div>
             <button (click)="addToCart(product)"
-                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
+                    class="w-full bg-gray-800 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-[1px] hover:shadow-lg">
               Agregar al Carrito
             </button>
           </div>
@@ -48,4 +47,3 @@
     </div>
   </div>
 </div>
-
