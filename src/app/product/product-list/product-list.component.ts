@@ -7,11 +7,14 @@ import {Product} from "../../models/product";
 import {interval, Subscription} from "rxjs";
 import {CartService} from "../../service/car.service";
 import {NotificationService} from "../../service/notification.service";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {DrawerComponent} from "../../shared/drawer/drawer.component";
+import {loadProducts} from "../../signals/product/product.action";
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, ShortDescriptionPipe, RouterLink],
+  imports: [CommonModule, ShortDescriptionPipe, RouterLink, DrawerComponent],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
@@ -24,8 +27,11 @@ export class ProductListComponent implements OnInit {
   currentSlide = 0;
   quantity: number = 1;
   private autoSlideSubscription?: Subscription;
+  filteredProducts: Product[] = [];
+  showDrawer: boolean = false;
 
-  constructor(private productService: ProductService, private router: Router,private cartService: CartService,private notificationService: NotificationService) {
+
+  constructor(private productService: ProductService, private router: Router, private cartService: CartService, private notificationService: NotificationService, private fb: FormBuilder) {
   }
 
   ngOnInit() {
@@ -47,6 +53,7 @@ export class ProductListComponent implements OnInit {
     this.productService.getProducts().subscribe(
       (data) => {
         this.products = data;
+        this.filteredProducts = data;
         this.groupProductsByCategory(this.products);
         this.featuredProducts = this.products.slice(0, 5);
         setTimeout(() => this.updateCarousel(), 0);
@@ -118,4 +125,38 @@ export class ProductListComponent implements OnInit {
       console.log(`Agregando ${this.quantity} ${product.title} al carrito`);
     }
   }
+
+  toggleDrawer() {
+    this.showDrawer = !this.showDrawer;
+  }
+
+  onFilterChange(filters: any) {
+    const {category, priceRange} = filters;
+    console.log(filters)
+    const [minPrice, maxPrice] = priceRange && priceRange.match(/^\d+-\d+$/)
+      ? priceRange.split('-').map(Number)
+      : [null, null];
+
+    this.filteredProducts = this.products.filter(product => {
+      const matchesCategory = category ? product.category === category : true;
+      const matchesPriceRange = priceRange ? (product.price >= minPrice && product.price <= maxPrice) : true;
+      console.log(matchesCategory, matchesPriceRange)
+      return matchesCategory && matchesPriceRange;
+    });
+    console.log(this.filteredProducts)
+    if (this.filteredProducts.length === 0) {
+      this.filteredProducts = this.products;
+
+    }else {
+      this.categories = [category]
+      this.productsByCategory[category] = this.filteredProducts;
+    }
+  }
+
+  onDrawerClose() {
+    this.showDrawer = false;
+    this.loadProducts()
+
+  }
+
 }

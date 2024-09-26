@@ -1,5 +1,22 @@
-<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <div class="relative w-full overflow-hidden py-8">
+<div class="flex">
+<div *ngIf="showDrawer" class="relative inset-y-0 z-50 left-80 transition-transform duration-300 ease-in-out transform"
+     [ngClass]="{'translate-x-0': !showDrawer, '-translate-x-full': showDrawer}">
+  <app-drawer (filterChange)="onFilterChange($event)" (closeDrawer)="onDrawerClose()" [categories]="categories"></app-drawer>
+</div>
+
+
+<!-- Contenedor principal -->
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow transition-all duration-300 ease-in-out"
+     [ngClass]="{'ml-[320px]': showDrawer, 'ml-0': !showDrawer}">
+  <div *ngIf="!showDrawer">
+    <h1 class="text-xl font-bold mb-4">Filtrar de Productos</h1>
+    <button
+      (click)="toggleDrawer()"
+      class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200 mb-4">
+      Filtrar Productos
+    </button>
+  </div>
+  <div *ngIf="!showDrawer" class="relative w-full overflow-hidden py-8">
     <div #carousel class="flex transition-transform duration-500 ease-in-out">
       <div *ngFor="let product of featuredProducts"
            class="w-1/3 flex-shrink-0 px-2 transition-all duration-500 ease-in-out">
@@ -79,4 +96,6 @@
       </div>
     </div>
   </div>
+</div>
+
 </div>
