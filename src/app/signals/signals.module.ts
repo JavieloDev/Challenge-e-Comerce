@@ -1,16 +1,15 @@
-import {NgModule} from '@angular/core';
-import {StoreModule} from '@ngrx/store';
-import {authReducer} from './auth/auth.reducer';
-import {cartReducer} from './car/car.reducer';
+import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
+import { authReducer } from './auth/auth.reducer';
+import { cartReducer } from './car/car.reducer';
 
 @NgModule({
   imports: [
     StoreModule.forRoot({
       auth: authReducer,
-
+      cart: cartReducer
     }),
-    StoreModule.forFeature('cart', cartReducer)
+
   ],
 })
-export class AppStoreModule {
-}
+export class AppStoreModule {}

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {ProductService} from '../../service/product.service';
 import {CommonModule} from "@angular/common";
@@ -7,30 +7,41 @@ import {NotificationService} from "../../service/notification.service";
 import {addItem} from "../../signals/car/cart.action";
 import {Store} from '@ngrx/store';
 import {AppStoreModule} from "../../signals/signals.module";
+import {CartState} from "../../signals/car/cart.state";
+import {CartService} from "../../service/car.service";
+
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, AppStoreModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss'
 })
 export class ProductDetailComponent implements OnInit {
   product!: Product;
-  loading = true;
+  productId!: number;
   quantity: number = 1;
+  loading = true;
   notificationMessage: string | null = null;
 
-
-  constructor(private route: ActivatedRoute, private store: Store, private productService: ProductService, private notificationService: NotificationService) {
+  constructor(private route: ActivatedRoute, private productService: ProductService, private notificationService: NotificationService,private cartService: CartService) {
     this.notificationService.currentNotification.subscribe(message => {
       this.notificationMessage = message;
     });
   }
 
   ngOnInit() {
-    const productId = Number(this.route.snapshot.paramMap.get('id'));
-    this.loadProduct(productId);
+    this.route.paramMap.subscribe(params => {
+      this.productId = +params.get('id')!; // Obtén el ID del producto
+    });
+
+    this.route.queryParamMap.subscribe(queryParams => {
+      this.quantity = +queryParams.get('quantity')!; // Obtén la cantidad deseada
+      console.log(`Cantidad deseada para comprar: ${this.quantity}`);
+    });
+
+    this.loadProduct(this.productId);
   }
 
   loadProduct(id: number) {
@@ -57,13 +68,15 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    this.store.dispatch(addItem({item: product}));
+    this.cartService.addToCart(product, this.quantity);
+
+    // this.store.dispatch(addItem({item: product}));
+    const currentCart = this.cartService.getCartItems();
     if (product) {
       this.notificationService.showNotification(`${product.title} ha sido agregado al carrito.`);
       console.log(`Agregando ${this.quantity} ${product.title} al carrito`);
     }
   }
-
 
 }
 

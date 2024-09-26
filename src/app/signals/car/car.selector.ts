@@ -1,7 +1,11 @@
-import {createSelector} from '@ngrx/store';
-import {CartState} from './cart.state';
+import { createSelector } from '@ngrx/store';
+import { AppState } from '../app.state'; // Asegúrate de importar el estado global
+import { CartState } from './cart.state';
+
+
+export const selectCart = (state: AppState) => state.cart;
 
 export const selectCartItems = createSelector(
-  (state: { cart: CartState }) => state.cart,
+  selectCart,
   (cart: CartState) => cart.items
 );

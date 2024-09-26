@@ -2,9 +2,11 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ProductService} from '../../service/product.service';
 import {Router, RouterLink} from '@angular/router';
 import {CommonModule} from "@angular/common";
-import {ShortDescriptionPipe} from "../../pipe/short-description.pipe";
+import {ShortDescriptionPipe} from "../../shared/pipe/short-description.pipe";
 import {Product} from "../../models/product";
 import {interval, Subscription} from "rxjs";
+import {CartService} from "../../service/car.service";
+import {NotificationService} from "../../service/notification.service";
 
 @Component({
   selector: 'app-product-list',
@@ -20,9 +22,10 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
   featuredProducts: Product[] = [];
   currentSlide = 0;
+  quantity: number = 1;
   private autoSlideSubscription?: Subscription;
 
-  constructor(private productService: ProductService, private router: Router) {
+  constructor(private productService: ProductService, private router: Router,private cartService: CartService,private notificationService: NotificationService) {
   }
 
   ngOnInit() {
@@ -106,6 +109,13 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    console.log('Producto agregado al carrito:', product);
+    this.cartService.addToCart(product, this.quantity);
+
+    // this.store.dispatch(addItem({item: product}));
+    const currentCart = this.cartService.getCartItems();
+    if (product) {
+      this.notificationService.showNotification(`${product.title} ha sido agregado al carrito.`);
+      console.log(`Agregando ${this.quantity} ${product.title} al carrito`);
+    }
   }
 }

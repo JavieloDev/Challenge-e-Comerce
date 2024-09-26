@@ -1,15 +1,22 @@
 import { Component } from '@angular/core';
 import {Router, RouterLink, RouterOutlet} from '@angular/router';
-import {NotificationComponent} from "./notification/notification.component";
+import {NotificationComponent} from "./shared/notification/notification.component";
 import {CommonModule, NgClass} from "@angular/common";
 import {Product} from "./models/product";
 import {ProductService} from "./service/product.service";
 import {Store} from "@ngrx/store";
-import {Observable, take} from "rxjs";
+import {map, Observable, take} from "rxjs";
 import {AuthState} from "./signals/auth/auth";
 import { AppStoreModule } from './signals/signals.module';
 import {login, logout} from "./signals/auth/auth.action";
+import {CartState} from "./signals/car/cart.state";
+import {CartService} from "./service/car.service";
 
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+}
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -25,6 +32,8 @@ export class AppComponent {
   isLoginVisible = false;
   isAuthenticated: Observable<boolean>;
   products: Product[] = [];
+  private _car: CartItem[] =[]
+
 
   reviews = [
     {
@@ -48,12 +57,21 @@ export class AppComponent {
   ];
 
 
-  constructor(private productService: ProductService,private router: Router,private store: Store<{ auth: AuthState }>) {
+  constructor(private productService: ProductService,private router: Router,private store: Store<{ auth: AuthState,cart :CartState }>,private cartService: CartService) {
     this.isAuthenticated = this.store.select(state => state.auth.isAuthenticated);
+    this.cartService.cartItems$.subscribe(items => {
+      this._car = items;
+    });
+  }
+
+  get productos(){
+    return this._car
+    console.log(this._car)
   }
 
   ngOnInit() {
     this.loadFeaturedProducts();
+
   }
 
   loadFeaturedProducts() {
@@ -105,4 +123,7 @@ export class AppComponent {
   //     setTimeout(() => cartIcon.classList.remove('animate-bounce'), 1000);
   //   }
   // }
+
+
+
 }

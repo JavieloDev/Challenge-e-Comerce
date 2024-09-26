@@ -1,7 +1,7 @@
 import {Product} from "../../models/product";
 
 export interface CartState {
-  items: Product[];
+  items: any[];
 }
 
 export const initialCartState: CartState = {
