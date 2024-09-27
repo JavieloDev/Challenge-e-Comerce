@@ -10,7 +10,7 @@ import {NotificationService} from "../../service/notification.service";
 import {DrawerComponent} from "../../shared/drawer/drawer.component";
 import {ClickLoggerDirective} from "../../shared/directive/click-logger.directive";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
-import { HttpInterceptorService } from '../../shared/interceptor/http.interceptor';
+import {httpInterceptorFn} from '../../shared/interceptor/http.interceptor';
 import {NotificationComponent} from "../../shared/notification/notification.component";
 import {MenuService} from "../../service/menu.service";
 
@@ -18,20 +18,14 @@ import {MenuService} from "../../service/menu.service";
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, ShortDescriptionPipe, RouterLink, DrawerComponent, ClickLoggerDirective],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpInterceptorService,
-      multi: true
-    },
-    NotificationService
-  ],
+  imports: [CommonModule, ShortDescriptionPipe, RouterLink, DrawerComponent, ClickLoggerDirective, NotificationComponent],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
 export class ProductListComponent implements OnInit {
   @ViewChild('carousel') carouselElement!: ElementRef;
+  @ViewChild(NotificationComponent) notificationComponent!: NotificationComponent;
+
   productsByCategory: { [key: string]: Product[] } = {};
   categories: string[] = [];
   products: Product[] = [];
@@ -56,6 +50,7 @@ export class ProductListComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    this.notificationService.registerNotification(this.notificationComponent);
     setTimeout(() => {
       this.updateCarousel();
       this.startAutoSlide();
@@ -169,6 +164,11 @@ export class ProductListComponent implements OnInit {
   onDrawerClose() {
     this.showDrawer = false;
     this.loadProducts()
+
+  }
+
+  triggerNotification() {
+    this.notificationService.showNotInter('Título', 'Este es un mensaje de prueba');
 
   }
 }

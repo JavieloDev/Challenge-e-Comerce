@@ -9,26 +9,24 @@ import {CommonModule} from "@angular/common";
   styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent {
-  notifications: string[] = [];
   showNotification = false;
-  notificationTitle = 'Notificación';
-  notificationMessage = 'Este es un mensaje de notificación.';
+  notificationTitle = '';
+  notificationMessage = '';
 
-  showNotificationMessage(title: string, message: string) {
+  show(title: string, message: string): void {
     this.notificationTitle = title;
     this.notificationMessage = message;
     this.showNotification = true;
-    setTimeout(() => this.closeNotification(), 5000);
+
+    // Ocultar notificación después de 3 segundos
+    setTimeout(() => {
+      this.closeNotification();
+    }, 3000);
   }
 
-  closeNotification() {
+  closeNotification(): void {
     this.showNotification = false;
   }
 
-  addNotification(message: string) {
-    this.notifications.push(message);
-    setTimeout(() => {
-      this.notifications.shift();
-    }, 3000);
-  }
+
 }

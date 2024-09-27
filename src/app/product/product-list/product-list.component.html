@@ -1,4 +1,4 @@
-<div class="flex lg:mt-24"  [ngClass]="{'sm:mt-0': !menuOpen}">
+<div class="flex lg:mt-24" [ngClass]="{'sm:mt-0': !menuOpen}">
   <div *ngIf="showDrawer"
        class="relative inset-y-0 z-0  transition-transform duration-300 ease-in-out transform "
        [ngClass]="{'translate-x-0': !showDrawer, '-translate-x-full': showDrawer,'left-36': showDrawer, 'lg:left-80 ': showDrawer,'w-[13px]': showDrawer ,'lm:w-[0]': showDrawer}">
@@ -10,18 +10,31 @@
     class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow transition-all duration-300 ease-in-out border border-gray-300 bg-white shadow-md rounded-lg"
     [ngClass]="{'ml-0': !showDrawer, 'ml-[130px]': showDrawer, 'lg:ml-[300px]': showDrawer}">
     <div *ngIf="!showDrawer">
-      <button
-        (click)="toggleDrawer()"
-        class="flex items-center bg-gray-900 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200 mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
-             stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M3 3h18v2H3V3zM3 10h18v2H3v-2zM3 17h18v2H3v-2z"/>
-        </svg>
-        Filtrar Productos
-      </button>
-    </div>
 
+      <div class="flex flex-col lg:flex-row justify-start items-center mb-4">
+        <button
+          (click)="toggleDrawer()"
+          class="flex items-center bg-gray-900 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200 shadow-md mb-2 lg:mb-0 lg:mr-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 3h18v2H3V3zM3 10h18v2H3v-2zM3 17h18v2H3v-2z"/>
+          </svg>
+          Filtrar Productos
+        </button>
+
+        <button (click)="triggerNotification()"
+                class="flex items-center bg-gray-900 text-white py-1.5 px-4 rounded hover:bg-blue-600 transition duration-200 shadow-md">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="24" height="24">
+            <path
+              d="M12.81 46.31c.24.06.49.09.73.09 1.34 0 2.57-.91 2.91-2.27 2.78-11.12 9.4-20.97 18.63-27.71 1.34-.98 1.63-2.85.65-4.19-.98-1.34-2.85-1.63-4.19-.65-10.36 7.57-17.79 18.61-20.91 31.1C10.22 44.28 11.2 45.91 12.81 46.31zM92.93 16.42c9.23 6.74 15.84 16.58 18.63 27.71.34 1.36 1.56 2.27 2.91 2.27.24 0 .49-.03.73-.09 1.61-.4 2.58-2.03 2.18-3.64-3.12-12.48-10.55-23.53-20.91-31.1-1.34-.98-3.21-.69-4.19.65C91.3 13.57 91.59 15.44 92.93 16.42zM19.2 90.85c-.98 3.91-.12 7.98 2.37 11.15 2.48 3.18 6.22 5 10.25 5h14.46c1.43 8.5 8.83 15 17.73 15s16.29-6.5 17.73-15h14.46c4.03 0 7.77-1.82 10.25-5 2.48-3.18 3.34-7.24 2.37-11.15L97.97 47.53C94.07 31.91 80.1 21 64 21S33.93 31.91 30.03 47.53L19.2 90.85zM64 116c-5.58 0-10.27-3.83-11.61-9h23.21C74.27 112.17 69.58 116 64 116zM64 27c13.34 0 24.92 9.04 28.15 21.98l10.83 43.32c.53 2.11.06 4.29-1.27 6.01-1.34 1.71-3.35 2.69-5.52 2.69H31.81c-2.17 0-4.18-.98-5.52-2.69-1.34-1.71-1.8-3.9-1.27-6.01l10.83-43.32C39.08 36.04 50.66 27 64 27z"
+              fill="#FFFFFF"/>
+          </svg>
+        </button>
+        <app-notification></app-notification>
+      </div>
+
+    </div>
     <div *ngIf="!showDrawer" class="relative w-full overflow-hidden py-8">
       <div class="relative overflow-hidden">
         <div #carousel class="carousel flex transition-transform duration-500 ease-in-out"
@@ -110,7 +123,7 @@
                           d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                   </svg>
                 </button>
-            </div>
+              </div>
 
             </div>
 
