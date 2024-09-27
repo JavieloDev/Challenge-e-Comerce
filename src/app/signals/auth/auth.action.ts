@@ -1,4 +1,19 @@
-import {createAction} from '@ngrx/store';
+// src/app/signals/auth/auth.actions.ts
 
-export const login = createAction('[Auth] Login');
-export const logout = createAction('[Auth] Logout');
+import { authSignal } from './auth.state';
+
+// Iniciar sesión
+export const login = () => {
+  authSignal.update(state => ({
+    ...state,
+    isAuthenticated: true,
+  }));
+};
+
+// Cerrar sesión
+export const logout = () => {
+  authSignal.update(state => ({
+    ...state,
+    isAuthenticated: false,
+  }));
+};

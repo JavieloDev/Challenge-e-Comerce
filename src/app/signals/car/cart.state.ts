@@ -6,15 +6,15 @@ export interface CartItem {
   quantity: number;
 }
 
-// Estado inicial del carrito
+
 export const cartSignal = signal<CartItem[]>([]); // Carrito vacío inicialmente
 
-// Computamos el total de artículos en el carrito
+// Total de artículos en el carrito (se actualizan los calores automaticamente con el computed)
 export const totalItemCountSignal = computed(() =>
   cartSignal().reduce((total, item) => total + item.quantity, 0)
 );
 
-// Computamos el precio total de los artículos en el carrito
+// Total de los artículos en el carrito
 export const totalPriceSignal = computed(() =>
   cartSignal().reduce((total, item) => total + item.product.price * item.quantity, 0)
 );

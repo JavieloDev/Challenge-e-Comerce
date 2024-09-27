@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from "../service/auth.service";
 import {Router} from "@angular/router";
-import {Store} from "@ngrx/store";
 import {login} from "../signals/auth/auth.action";
 
 @Component({
@@ -21,13 +20,13 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
-              private router: Router, private store: Store) {
+              private router: Router) {
   }
 
 
   onLogin() {
-    this.store.dispatch(login());
     if (this.loginForm.valid) {
+      login();
       this.authService.login();
       this.router.navigate(['products']);
     } else {

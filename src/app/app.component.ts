@@ -4,36 +4,34 @@ import {NotificationComponent} from "./shared/notification/notification.componen
 import {CommonModule, NgClass} from "@angular/common";
 import {Product} from "./models/product";
 import {ProductService} from "./service/product.service";
-import {Store} from "@ngrx/store";
-import {map, Observable, take} from "rxjs";
-import {AuthState} from "./signals/auth/auth";
-import { AppStoreModule } from './signals/signals.module';
-import {login, logout} from "./signals/auth/auth.action";
+import {Observable, take} from "rxjs";
+import {authSignal, AuthState} from "./signals/auth/auth.state";
+import {logout} from "./signals/auth/auth.action";
 import {CartService} from "./service/car.service";
 import {ShortDescriptionPipe} from "./shared/pipe/short-description.pipe";
 import {NotificationService} from "./service/notification.service";
-import {cartSignal, totalItemCountSignal} from './signals/car/cart.state';
+import {cartSignal} from './signals/car/cart.state';
+import {AuthService} from "./service/auth.service";
 
 
 export interface CartItem {
   product: Product;
   quantity: number;
 }
+
 @Component({
   selector: 'app-root',
   standalone: true,
-    imports: [RouterOutlet, NotificationComponent, RouterLink, NgClass, CommonModule, AppStoreModule, ShortDescriptionPipe],
+  imports: [RouterOutlet, NotificationComponent, RouterLink, NgClass, CommonModule, ShortDescriptionPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements AfterViewInit{
+export class AppComponent implements AfterViewInit {
   title = 'e-commerce-app';
   isMenuOpen = false;
   featuredProducts: any[] = [];
   isLoginVisible = false;
-  isAuthenticated: Observable<boolean>;
   products: Product[] = [];
-  cartItems = cartSignal();
   cartCount = 0;
   reviews = [
     {
@@ -59,15 +57,16 @@ export class AppComponent implements AfterViewInit{
 
   constructor(private productService: ProductService,
               private router: Router,
-              private store: Store<{ auth: AuthState }>,
               private cartService: CartService,
+              private authService: AuthService,
               private notificationService: NotificationService) {
-    this.isAuthenticated = this.store.select(state => state.auth.isAuthenticated);
+
     effect(() => {
-      const cartItems = cartSignal(); // Obtén los productos del carrito
-      this.cartCount = cartItems.reduce((count, item) => count + item.quantity, 0); // Calcula la cantidad total de productos
+      const cartItems = cartSignal();
+      this.cartCount = cartItems.reduce((count, item) => count + item.quantity, 0);
     });
   }
+
   ngAfterViewInit() {
     const notification = new NotificationComponent();
     this.notificationService.registerNotification(notification);
@@ -84,32 +83,45 @@ export class AppComponent implements AfterViewInit{
       this.featuredProducts = data.filter(product => product.rating && product.rating.rate >= 3.5);
     });
   }
+
   handleLoginLogout() {
-    this.isAuthenticated.pipe(take(1)).subscribe(isAuthenticated => {
-      if (!isAuthenticated) {
-        this.onLogout();
-        this.isLoginVisible=true;
+      if (!this.isAuthenticated) {
+        this.login();
+        this.isLoginVisible = true;
+      }else{
+        this.logout()
+        console.log('autenticado')
+        this.isLoginVisible = false;
       }
-    });
+  }
+
+  login() {
+    this.authService.login();
+  }
+
+
+  logout() {
+    this.authService.logout();
+  }
+
+
+  get isAuthenticated() {
+    return this.authService.isAuthenticated();
   }
 
   handleCatalogClick() {
-    this.isAuthenticated.subscribe(isAuthenticated => {
-      if (!isAuthenticated) {
+      if (!this.isAuthenticated) {
         this.showLogin();
-      }else{
+        console.log('NO autenticado')
+      } else {
         this.router.navigate(['products']);
-        this.isLoginVisible=true
+        this.isLoginVisible = true;
+        console.log('Autenticado')
       }
-    });
   }
 
   showLogin() {
     this.isLoginVisible = true;
-  }
-
-  onLogout() {
-    this.store.dispatch(logout());
   }
 
 

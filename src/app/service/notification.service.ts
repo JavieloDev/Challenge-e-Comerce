@@ -20,6 +20,7 @@ export class NotificationService {
       this.notificationComponent.showNotificationMessage(title, message);
     }
   }
+
   showNotification(message: string) {
     this.notificationSource.next(message);
     setTimeout(() => this.notificationSource.next(null), 3000);

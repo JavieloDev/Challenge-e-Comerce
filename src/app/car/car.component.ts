@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {Router} from '@angular/router'; // Importa Router para redirección
+
+import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 
 import {AsyncPipe, CommonModule, DecimalPipe} from "@angular/common";
@@ -30,13 +30,10 @@ export interface CartItem {
   ]
 })
 export class CarComponent {
-  _car: Observable<CartItem[]>;
   cartItems = cartSignal();
-  totalItems = totalItemCountSignal();
-  totalPrice = totalPriceSignal();
 
   constructor(private cartService: CartService, private router: Router, private cdr: ChangeDetectorRef) {
-    this._car = this.cartService.cartItems$;
+
   }
 
   checkout() {
@@ -45,17 +42,12 @@ export class CarComponent {
         const productId = item.product.id;
         const quantity = item.quantity;
 
-        // Redirige a la página de detalles del producto con su cantidad
         this.router.navigate(['/product', productId], {queryParams: {quantity: quantity}});
       });
     } else {
       console.log('El carrito está vacío, no se puede proceder al pago.');
     }
   }
-
-  // removeFromCart(product: any) {
-  //   this.cartService.removeFromCart(product);
-  // }
 
   removeFromCart(product: Product) {
     this.cartService.removeFromCart(product);

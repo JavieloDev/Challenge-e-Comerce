@@ -1,10 +1,10 @@
 import { cartSignal } from './cart.state';
 import { CartItem } from './cart.state';
 
-// Acción para agregar un producto al carrito
+
 export const addToCart = (newItem: CartItem) => {
   cartSignal.update(currentItems => {
-    // Busca si ya existe el producto
+
     const existingItem = currentItems.find(item => item.product.id === newItem.product.id);
     if (existingItem) {
       // Actualiza la cantidad si ya existe
@@ -20,7 +20,7 @@ export const addToCart = (newItem: CartItem) => {
   });
 };
 
-// Acción para eliminar un producto del carrito
+
 export const removeFromCart = (productId: number) => {
   cartSignal.update(currentItems =>
     currentItems.filter(item => item.product.id !== productId)

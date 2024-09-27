@@ -1,4 +1,4 @@
-import {Component, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {ProductService} from '../../service/product.service';
 import {CommonModule} from "@angular/common";
@@ -21,7 +21,7 @@ export class ProductDetailComponent implements OnInit {
   loading = true;
   notificationMessage: string | null = null;
 
-  constructor(private route: ActivatedRoute, private productService: ProductService, private notificationService: NotificationService,private cartService: CartService) {
+  constructor(private route: ActivatedRoute, private productService: ProductService, private notificationService: NotificationService, private cartService: CartService) {
     this.notificationService.currentNotification.subscribe(message => {
       this.notificationMessage = message;
     });

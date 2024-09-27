@@ -1,20 +1,32 @@
-import {Injectable} from '@angular/core';
+import {Injectable, signal} from '@angular/core';
+import {AuthState} from "../signals/auth/auth.state";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private loggedIn = false;
+  private authState = signal<AuthState>({ isAuthenticated: false});
 
-  isAuthenticated(): boolean {
-    return this.loggedIn;
+  constructor() {}
+
+  // Método para obtener el estado de autenticación
+  getAuthState() {
+    return this.authState;
   }
 
+  // Método para iniciar sesión
   login() {
-    this.loggedIn = true;
+    // Aquí podrías realizar la lógica de autenticación
+    this.authState.set({ isAuthenticated: true });
   }
 
+  // Método para cerrar sesión
   logout() {
-    this.loggedIn = false;
+    this.authState.set({ isAuthenticated: false });
+  }
+
+  // Método para verificar si el usuario está autenticado
+  isAuthenticated() {
+    return this.authState().isAuthenticated;
   }
 }
