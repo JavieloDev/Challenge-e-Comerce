@@ -10,7 +10,7 @@ import {NotificationService} from "../../service/notification.service";
 import {DrawerComponent} from "../../shared/drawer/drawer.component";
 import {ClickLoggerDirective} from "../../shared/directive/click-logger.directive";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
-import {HttpInterceptorService} from "../../shared/interceptor/http.interceptor";
+import { HttpInterceptorService } from '../../shared/interceptor/http.interceptor';
 import {NotificationComponent} from "../../shared/notification/notification.component";
 import {MenuService} from "../../service/menu.service";
 
