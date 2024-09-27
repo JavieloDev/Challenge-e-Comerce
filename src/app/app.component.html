@@ -27,8 +27,6 @@
           </svg>
           Productos
         </a>
-
-
         <a routerLink="/" (click)="handleLoginLogout()"
            class="flex items-center hover:text-indigo-200 transition duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 128 128" width="25" height="25">
@@ -55,17 +53,47 @@
     </div>
   </header>
 
+
   <!-- Menú desplegable para móviles -->
   <div class="lg:hidden" [ngClass]="{'hidden': !isMenuOpen}">
-    <nav class="bg-indigo-500 text-white py-4">
-      <a routerLink="/products" (click)="isLoginVisible=true" class="block px-4 py-2 hover:bg-indigo-600">Productos</a>
-      <a routerLink="/" (click)="handleLoginLogout()" class="block px-4 py-2 hover:bg-indigo-600">Iniciar Sesión</a>
-      <a routerLink="/car" (click)="isLoginVisible=false" class="block px-4 py-2 hover:bg-indigo-600">Carrito</a>
+    <nav class="bg-indigo-600 text-white py-4 shadow-lg mt-20 transition-transform transform">
+      <div class="flex flex-col justify-center items-center">
+        <a routerLink="/products" (click)="isLoginVisible=true"
+           class="flex items-center block px-4 py-2 hover:bg-indigo-700 transition duration-200 rounded-md shadow-sm mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 48 48" width="25" height="25">
+            <path
+              d="M19.5 5.0097656C18.394215 5.0097427 17.288142 5.4267019 16.453125 6.2617188L10.714844 12L8.5 12 A 1.50015 1.50015 0 0 0 7 13.5L7 38.5C7 40.967501 9.0324991 43 11.5 43L36.5 43C38.967501 43 41 40.967501 41 38.5L41 13.5 A 1.50015 1.50015 0 0 0 39.5 12L37.121094 12L32.298828 7.1757812C31.532487 6.4094399 30.515909 6.0273438 29.5 6.0273438C28.484091 6.0273438 27.469466 6.4094399 26.703125 7.1757812L25.082031 8.796875L22.546875 6.2636719L22.544922 6.2617188C21.710554 5.4276323 20.604907 5.0097885 19.5 5.0097656 z M 19.5 7.9902344C19.831465 7.9902114 20.162475 8.1212214 20.423828 8.3828125L24.039062 12L14.958984 12L18.574219 8.3828125C18.836202 8.1208293 19.168535 7.9902573 19.5 7.9902344 z M 29.5 9.0058594C29.74155 9.0058594 29.984076 9.1032164 30.177734 9.296875L32.878906 12L28.285156 12L27.203125 10.917969L28.824219 9.296875C29.017877 9.1032164 29.25845 9.0058594 29.5 9.0058594 z M 10 15L36.277344 15 A 1.50015 1.50015 0 0 0 36.769531 15L38 15L38 38.5C38 39.346499 37.346499 40 36.5 40L11.5 40C10.653501 40 10 39.346499 10 38.5L10 15 z M 19.5 21 A 1.50015 1.50015 0 1 0 19.5 24L28.5 24 A 1.50015 1.50015 0 1 0 28.5 21L19.5 21 z"
+              fill="#FFFFFF"/>
+          </svg>
+          Productos
+        </a>
+        <a routerLink="/" (click)="handleLoginLogout()"
+           class="flex items-center block px-4 py-2 hover:bg-indigo-700 transition duration-200 rounded-md shadow-sm mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 128 128" width="25" height="25">
+            <path
+              d="M64 6.0507812C49.15 6.0507812 34.3 11.7 23 23C0.4 45.6 0.4 82.4 23 105C34.3 116.3 49.2 122 64 122C78.8 122 93.7 116.3 105 105C106.2 103.8 106.2 101.90078 105 100.80078C103.8 99.600781 101.90078 99.600781 100.80078 100.80078C80.500781 121.10078 47.500781 121.10078 27.300781 100.80078C7.0007813 80.500781 6.9992188 47.499219 27.199219 27.199219C47.499219 6.9992188 80.500781 6.9992188 100.80078 27.199219C101.90078 28.399219 103.8 28.399219 105 27.199219C106.2 25.999219 106.2 24.1 105 23C93.7 11.7 78.85 6.0507812 64 6.0507812 z M 102 46C101.3 46 100.50039 46.300391 99.900391 46.900391C98.700391 48.100391 98.700391 49.999609 99.900391 51.099609L109.80078 61L79 61C77.3 61 76 62.3 76 64C76 65.7 77.3 67 79 67L109.80078 67L99.900391 76.900391C98.700391 78.100391 98.700391 79.999609 99.900391 81.099609C101.10039 82.299609 102.99961 82.299609 104.09961 81.099609L119.09961 66.099609C119.69961 65.499609 120 64.8 120 64C120 63.2 119.69961 62.500391 119.09961 61.900391L104.09961 46.900391C103.49961 46.300391 102.7 46 102 46 z M 64 61 A 3 3 0 0 0 61 64 A 3 3 0 0 0 64 67 A 3 3 0 0 0 67 64 A 3 3 0 0 0 64 61 z"
+              fill="#FFFFFF"/>
+          </svg>
+          {{ isAuthenticated ? 'Cerrar Sesión' : 'Iniciar Sesión' }}
+        </a>
+        <a routerLink="/car" (click)="isLoginVisible=true"
+           class="flex items-center block px-4 py-2 hover:bg-indigo-700 transition duration-200 rounded-md shadow-sm mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+          <span *ngIf="cartCount> 0" class="bg-blue-500 text-white font-bold  px-1 rounded-full text-sm">
+              {{ cartCount}}
+            </span>
+          Compras
+        </a>
+      </div>
     </nav>
   </div>
 
   <!-- Main Content Area -->
-  <div *ngIf="!isLoginVisible">
+  <div *ngIf="!isLoginVisible" [ngClass]="{'mt-20': !isMenuOpen}">
     <div class="relative bg-gray-900 overflow-hidden">
       <!-- Hero section -->
       <div class="max-w-7xl mx-auto">
@@ -102,20 +130,32 @@
     <div class="bg-slate-400">
       <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 text-center mb-8">Productos destacados</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          <div *ngFor="let product of featuredProducts"
-               class="relative bg-white rounded-xl shadow-md overflow-hidden transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl cursor-pointer">
-            <div class="relative group">
-              <img [src]="product.image" [alt]="product.title"
-                   class="w-full h-56 sm:h-64 object-cover object-center transition duration-300 ease-in-out">
-              <div class="absolute top-0 right-0 m-2 px-2 py-1 bg-indigo-600 text-white text-sm font-semibold rounded">
-                ${{ product.price | number:'1.2-2' }}
-              </div>
-              <div
-                class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
-                <h3 class="text-lg font-semibold text-white mb-2 line-clamp-2 text-center">{{ product.title }}</h3>
-                <p
-                  class="text-sm text-white mb-4 line-clamp-3 text-center">{{ product.description | shortDescription:80 }}</p>
+
+        <div *ngFor="let rating of (productsByRating | keyvalue)" class="mb-12">
+          <div class="flex items-center justify-center mb-4">
+            <div class="border-b-2 border-gray-800 flex-grow"></div>
+            <h3 class="text-xl font-bold text-gray-800 mx-4 bg-white px-4 py-2 rounded-full shadow-md">
+              Rating de {{ rating.key }}
+            </h3>
+            <div class="border-b-2 border-gray-800 flex-grow"></div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div *ngFor="let product of rating.value"
+                 class="relative bg-white rounded-xl shadow-md overflow-hidden transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl cursor-pointer">
+              <div class="relative group">
+                <img [src]="product.image" [alt]="product.title"
+                     class="w-full h-56 sm:h-64 object-cover object-center transition duration-300 ease-in-out">
+                <div
+                  class="absolute top-0 right-0 m-2 px-2 py-1 bg-indigo-600 text-white text-sm font-semibold rounded">
+                  ${{ product.price | number:'1.2-2' }}
+                </div>
+                <div
+                  class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
+                  <h3 class="text-lg font-semibold text-white mb-2 line-clamp-2 text-center">{{ product.title }}</h3>
+                  <p
+                    class="text-sm text-white mb-4 line-clamp-3 text-center">{{ product.description | shortDescription:80 }}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -126,7 +166,7 @@
   </div>
 
 
-  <main *ngIf="isLoginVisible" class="flex-grow container mx-auto relative" >
+  <main *ngIf="isLoginVisible" class="flex-grow container mx-auto relative">
     <div class="relative  bg-opacity-90 ">
       <app-notification></app-notification>
       <router-outlet></router-outlet>
@@ -136,7 +176,8 @@
   <div *ngIf="!isLoginVisible">
     <section class="bg-white py-12">
       <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 text-center mb-8">Lo que dicen nuestros clientes</h2>
+        <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 text-center mb-8">Lo que dicen nuestros
+          clientes</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div *ngFor="let review of reviews"
                class="bg-gray-100 p-6 rounded-lg shadow-md transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl">
@@ -171,7 +212,7 @@
     </section>
   </div>
 
-  <!-- Footer -->
+
   <footer class="bg-gray-800 to-indigo-600 text-white p-4">
     <div class="container mx-auto text-center">
       &copy; 2024 Fashon-Styles by JavieloDev. Todos los derechos reservados.

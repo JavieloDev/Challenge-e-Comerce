@@ -13,7 +13,7 @@ export const routes: Routes = [
     loadChildren: () => import('./product/product.module').then(m => m.ProductModule),
     canActivate: [AuthGuard]
   },
-  { path: 'product/:id', component: ProductDetailComponent, canActivate: [AuthGuard] },
+  {path: 'product/:id', component: ProductDetailComponent, canActivate: [AuthGuard]},
 
   {path: 'car', component: CarComponent, canActivate: [AuthGuard]},
   {path: '', redirectTo: '/login', pathMatch: 'full'},

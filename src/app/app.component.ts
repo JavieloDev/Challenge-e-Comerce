@@ -4,14 +4,12 @@ import {NotificationComponent} from "./shared/notification/notification.componen
 import {CommonModule, NgClass} from "@angular/common";
 import {Product} from "./models/product";
 import {ProductService} from "./service/product.service";
-import {Observable, take} from "rxjs";
-import {authSignal, AuthState} from "./signals/auth/auth.state";
-import {logout} from "./signals/auth/auth.action";
 import {CartService} from "./service/car.service";
 import {ShortDescriptionPipe} from "./shared/pipe/short-description.pipe";
 import {NotificationService} from "./service/notification.service";
 import {cartSignal} from './signals/car/cart.state';
 import {AuthService} from "./service/auth.service";
+import {MenuService} from "./service/menu.service";
 
 
 export interface CartItem {
@@ -33,6 +31,7 @@ export class AppComponent implements AfterViewInit {
   isLoginVisible = false;
   products: Product[] = [];
   cartCount = 0;
+  productsByRating: { [key: number]: Product[] } = {};
   reviews = [
     {
       name: 'John Doe',
@@ -59,6 +58,7 @@ export class AppComponent implements AfterViewInit {
               private router: Router,
               private cartService: CartService,
               private authService: AuthService,
+              private menuService: MenuService,
               private notificationService: NotificationService) {
 
     effect(() => {
@@ -75,6 +75,14 @@ export class AppComponent implements AfterViewInit {
 
   ngOnInit() {
     this.loadFeaturedProducts();
+    this.productService.getProductsGroupedByRating().subscribe(
+      (groupedProducts) => {
+        this.productsByRating = groupedProducts;
+      },
+      (error) => {
+        console.error('Error fetching products by rating:', error);
+      }
+    );
 
   }
 
@@ -85,14 +93,14 @@ export class AppComponent implements AfterViewInit {
   }
 
   handleLoginLogout() {
-      if (!this.isAuthenticated) {
-        this.login();
-        this.isLoginVisible = true;
-      }else{
-        this.logout()
-        console.log('autenticado')
-        this.isLoginVisible = false;
-      }
+    if (!this.isAuthenticated) {
+      this.login();
+      this.isLoginVisible = true;
+    } else {
+      this.logout()
+      console.log('autenticado')
+      this.isLoginVisible = false;
+    }
   }
 
   login() {
@@ -110,14 +118,14 @@ export class AppComponent implements AfterViewInit {
   }
 
   handleCatalogClick() {
-      if (!this.isAuthenticated) {
-        this.showLogin();
-        console.log('NO autenticado')
-      } else {
-        this.router.navigate(['products']);
-        this.isLoginVisible = true;
-        console.log('Autenticado')
-      }
+    if (!this.isAuthenticated) {
+      this.showLogin();
+      console.log('NO autenticado')
+    } else {
+      this.router.navigate(['products']);
+      this.isLoginVisible = true;
+      console.log('Autenticado')
+    }
   }
 
   showLogin() {
@@ -127,6 +135,11 @@ export class AppComponent implements AfterViewInit {
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+    if (this.isMenuOpen) {
+      this.menuService.menuIn();
+    } else {
+      this.menuService.menuOut();
+    }
   }
 
 

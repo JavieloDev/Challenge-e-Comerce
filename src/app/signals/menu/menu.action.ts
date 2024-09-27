@@ -1,16 +1,16 @@
-import {authSignal} from './auth.state';
+import {menuSignal} from './menu.state';
 
-// Iniciar sesión
+
 export const login = () => {
-  authSignal.update(state => ({
+  menuSignal.update(state => ({
     ...state,
     isAuthenticated: true,
   }));
 };
 
-// Cerrar sesión
+
 export const logout = () => {
-  authSignal.update(state => ({
+  menuSignal.update(state => ({
     ...state,
     isAuthenticated: false,
   }));

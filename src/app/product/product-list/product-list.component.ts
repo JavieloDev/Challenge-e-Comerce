@@ -7,12 +7,12 @@ import {Product} from "../../models/product";
 import {interval, Subscription} from "rxjs";
 import {CartService} from "../../service/car.service";
 import {NotificationService} from "../../service/notification.service";
-import {FormBuilder} from "@angular/forms";
 import {DrawerComponent} from "../../shared/drawer/drawer.component";
 import {ClickLoggerDirective} from "../../shared/directive/click-logger.directive";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {HttpInterceptorService} from "../../shared/interceptor/http.interceptor";
 import {NotificationComponent} from "../../shared/notification/notification.component";
+import {MenuService} from "../../service/menu.service";
 
 
 @Component({
@@ -37,17 +37,22 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
   featuredProducts: Product[] = [];
   currentSlide = 0;
-  quantity: number = 1;
   private autoSlideSubscription?: Subscription;
   filteredProducts: Product[] = [];
   showDrawer: boolean = false;
+  menuOpen: boolean = false;
 
-
-  constructor(private productService: ProductService, private router: Router, private cartService: CartService, private notificationService: NotificationService, private fb: FormBuilder) {
+  constructor(private productService: ProductService,
+              private router: Router,
+              private cartService: CartService,
+              private notificationService: NotificationService,
+              private menuServise:MenuService) {
   }
 
   ngOnInit() {
     this.loadProducts();
+    this.menuOpen = this.menuServise.isMenuOpen();
+    console.log(this.menuOpen)
   }
 
   ngAfterViewInit() {

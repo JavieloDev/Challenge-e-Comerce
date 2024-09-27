@@ -1,12 +1,9 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
-
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs';
-
 import {AsyncPipe, CommonModule, DecimalPipe} from "@angular/common";
 import {CartService} from "../service/car.service";
 import {Product} from "../models/product";
-import {cartSignal, totalItemCountSignal, totalPriceSignal} from "../signals/car/cart.state";
+import {cartSignal} from "../signals/car/cart.state";
 
 
 export interface CartItem {
@@ -27,12 +24,13 @@ export interface CartItem {
     DecimalPipe,
     AsyncPipe,
     CommonModule
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CarComponent {
   cartItems = cartSignal();
 
-  constructor(private cartService: CartService, private router: Router, private cdr: ChangeDetectorRef) {
+  constructor(private cartService: CartService, private router: Router) {
 
   }
 
@@ -48,7 +46,6 @@ export class CarComponent {
       console.log('El carrito está vacío, no se puede proceder al pago.');
     }
   }
-
   removeFromCart(product: Product) {
     this.cartService.removeFromCart(product);
     this.cartItems = this.cartService.getCartItems()

@@ -1,4 +1,4 @@
-<div class="flex mt-24 ">
+<div class="flex lg:mt-24"  [ngClass]="{'sm:mt-0': !menuOpen}">
   <div *ngIf="showDrawer"
        class="relative inset-y-0 z-0  transition-transform duration-300 ease-in-out transform "
        [ngClass]="{'translate-x-0': !showDrawer, '-translate-x-full': showDrawer,'left-36': showDrawer, 'lg:left-80 ': showDrawer,'w-[13px]': showDrawer ,'lm:w-[0]': showDrawer}">

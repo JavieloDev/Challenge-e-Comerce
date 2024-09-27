@@ -24,8 +24,5 @@ export class CartService {
 
   removeFromCart(product: Product) {
     removeFromCart(product.id);
-    // const currentItems = this.getCartItems();
-    // const updatedItems = currentItems.filter(item => item.product.id !== product.id);
-    // cartSignal.set(updatedItems);
   }
 }

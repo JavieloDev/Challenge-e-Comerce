@@ -29,5 +29,5 @@ export const removeFromCart = (productId: number) => {
 
 // Acción para vaciar el carrito
 export const clearCart = () => {
-  cartSignal.set([]); // Resetea el carrito a vacío
+  cartSignal.set([]);
 };
