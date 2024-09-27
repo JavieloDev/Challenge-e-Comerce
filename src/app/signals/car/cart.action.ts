@@ -4,7 +4,6 @@ import { CartItem } from './cart.state';
 
 export const addToCart = (newItem: CartItem) => {
   cartSignal.update(currentItems => {
-
     const existingItem = currentItems.find(item => item.product.id === newItem.product.id);
     if (existingItem) {
       // Actualiza la cantidad si ya existe

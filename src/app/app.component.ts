@@ -63,8 +63,9 @@ export class AppComponent implements AfterViewInit {
 
     effect(() => {
       const cartItems = cartSignal();
-      this.cartCount = cartItems.reduce((count, item) => count + item.quantity, 0);
+      this.cartCount = cartItems.length;
     });
+
   }
 
   ngAfterViewInit() {
