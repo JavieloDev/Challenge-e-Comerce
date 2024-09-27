@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, effect} from '@angular/core';
 import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import {NotificationComponent} from "./shared/notification/notification.component";
 import {CommonModule, NgClass} from "@angular/common";
@@ -9,10 +9,10 @@ import {map, Observable, take} from "rxjs";
 import {AuthState} from "./signals/auth/auth";
 import { AppStoreModule } from './signals/signals.module';
 import {login, logout} from "./signals/auth/auth.action";
-import {CartState} from "./signals/car/cart.state";
 import {CartService} from "./service/car.service";
 import {ShortDescriptionPipe} from "./shared/pipe/short-description.pipe";
 import {NotificationService} from "./service/notification.service";
+import {cartSignal, totalItemCountSignal} from './signals/car/cart.state';
 
 
 export interface CartItem {
@@ -26,16 +26,15 @@ export interface CartItem {
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit{
   title = 'e-commerce-app';
   isMenuOpen = false;
   featuredProducts: any[] = [];
   isLoginVisible = false;
   isAuthenticated: Observable<boolean>;
   products: Product[] = [];
-  private _car: CartItem[] =[]
-
-
+  cartItems = cartSignal();
+  cartCount = 0;
   reviews = [
     {
       name: 'John Doe',
@@ -60,18 +59,20 @@ export class AppComponent {
 
   constructor(private productService: ProductService,
               private router: Router,
-              private store: Store<{ auth: AuthState,cart :CartState }>,
+              private store: Store<{ auth: AuthState }>,
               private cartService: CartService,
               private notificationService: NotificationService) {
     this.isAuthenticated = this.store.select(state => state.auth.isAuthenticated);
-    this.cartService.cartItems$.subscribe(items => {
-      this._car = items;
+    effect(() => {
+      const cartItems = cartSignal(); // Obtén los productos del carrito
+      this.cartCount = cartItems.reduce((count, item) => count + item.quantity, 0); // Calcula la cantidad total de productos
     });
   }
-
-  get productos(){
-    return this._car
+  ngAfterViewInit() {
+    const notification = new NotificationComponent();
+    this.notificationService.registerNotification(notification);
   }
+
 
   ngOnInit() {
     this.loadFeaturedProducts();
@@ -106,10 +107,6 @@ export class AppComponent {
   showLogin() {
     this.isLoginVisible = true;
   }
-  // onLogin() {
-  //   this.store.dispatch(login());
-  //
-  // }
 
   onLogout() {
     this.store.dispatch(logout());
@@ -119,23 +116,6 @@ export class AppComponent {
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
-
-
-  // viewDetails(productId: number) {
-  //   this.router.navigate(['/products/details', productId]);
-  // }
-  // addToCart(product: Product){
-  //   if (this.isAuthenticated){
-  //     this.cartService.addToCart(product, this.quantity);
-  //     const currentCart = this.cartService.getCartItems();
-  //     if (product) {
-  //       this.notificationService.showNotification(`${product.title} ha sido agregado al carrito.`);
-  //       console.log(`Agregando ${this.quantity} ${product.title} al carrito`);
-  //     }
-  //   }else{
-  //     this.notificationService.showNotification('Por favor, inicia sesión para agregar productos al carrito.');
-  //   }
-  // }
 
 
 }

@@ -41,8 +41,8 @@
 
         <a routerLink="/car" (click)="isLoginVisible=true"
            class="flex items-center hover:text-indigo-200 transition duration-300">
-          <span *ngIf="productos.length > 0" class="bg-blue-500 text-white font-bold  px-1 rounded-full text-sm">
-              {{ productos.length }}
+          <span *ngIf="cartCount> 0" class="bg-blue-500 text-white font-bold  px-1 rounded-full text-sm">
+              {{ cartCount}}
             </span>
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
                stroke="currentColor">
@@ -128,6 +128,7 @@
 
   <main *ngIf="isLoginVisible" class="flex-grow container mx-auto relative" >
     <div class="relative  bg-opacity-90 ">
+      <app-notification></app-notification>
       <router-outlet></router-outlet>
     </div>
   </main>

@@ -9,12 +9,24 @@ import {CartService} from "../../service/car.service";
 import {NotificationService} from "../../service/notification.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {DrawerComponent} from "../../shared/drawer/drawer.component";
+import {ClickLoggerDirective} from "../../shared/directive/click-logger.directive";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HttpInterceptorService} from "../../shared/interceptor/http.interceptor";
+import {NotificationComponent} from "../../shared/notification/notification.component";
 
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, ShortDescriptionPipe, RouterLink, DrawerComponent],
+  imports: [CommonModule, ShortDescriptionPipe, RouterLink, DrawerComponent,ClickLoggerDirective],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    },
+    NotificationService
+  ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
@@ -60,6 +72,8 @@ export class ProductListComponent implements OnInit {
       },
       (error) => {
         console.error('Error al cargar productos:', error);
+        const notification = new NotificationComponent();
+        this.notificationService.registerNotification(notification);
       }
     );
   }
@@ -115,14 +129,17 @@ export class ProductListComponent implements OnInit {
     this.router.navigate(['/products/details', productId]);
   }
 
-  addToCart(product: Product) {
-    this.cartService.addToCart(product, this.quantity);
-
-    // this.store.dispatch(addItem({item: product}));
-    const currentCart = this.cartService.getCartItems();
-    if (product) {
-      this.notificationService.showNotification(`${product.title} ha sido agregado al carrito.`);
-    }
+  // addToCart(product: Product) {
+  //   this.cartService.addToCart(product, this.quantity);
+  //
+  //   // this.store.dispatch(addItem({item: product}));
+  //   const currentCart = this.cartService.getCartItems();
+  //   if (product) {
+  //     this.notificationService.showNotification(`${product.title} ha sido agregado al carrito.`);
+  //   }
+  // }
+  addToCart(product: Product, quantity: number) {
+    this.cartService.addToCart(product, quantity);
   }
 
   toggleDrawer() {

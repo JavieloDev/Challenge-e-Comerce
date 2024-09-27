@@ -1,19 +1,18 @@
-import {Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { Component } from '@angular/core';
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-notification',
   standalone: true,
-  imports: [CommonModule],
+  imports:[CommonModule],
   templateUrl: './notification.component.html',
-  styleUrl: './notification.component.scss'
+  styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent {
   notifications: string[] = [];
   showNotification = false;
   notificationTitle = 'Notificación';
   notificationMessage = 'Este es un mensaje de notificación.';
-
 
   showNotificationMessage(title: string, message: string) {
     this.notificationTitle = title;
@@ -33,4 +32,3 @@ export class NotificationComponent {
     }, 3000);
   }
 }
-

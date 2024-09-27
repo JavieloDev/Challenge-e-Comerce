@@ -1,27 +1,19 @@
-import { createReducer, on } from '@ngrx/store';
-import { addItem, removeItem } from './cart.action';
-import { initialCartState, CartState } from './cart.state';
-
-
-const _cartReducer = createReducer(
-  initialCartState,
-  on(addItem, (state, { item }) => {
-    console.log(item)
-    const newState = {
-      ...state,
-      items: [...state.items, item], // Agrega el nuevo artículo al carrito
-    };
-    console.log('Nuevo estado del carrito:', newState); // Verifica lo que se está devolviendo
-    return newState;
-
-  }),
-
-  on(removeItem, (state, { itemId }) => ({
-    ...state,
-    items: state.items.filter(item => item.id !== itemId), // Elimina el artículo del carrito
-  }))
-);
-
-export function cartReducer(state: CartState | undefined, action: any) {
-  return _cartReducer(state, action);
-}
+// src/app/signals/car/car.reducer.ts
+//
+// import { addItem, removeItem } from './cart.action';
+// import { initialCartState, CartState } from './cart.state';
+//
+// export function cartReducer(state = initialCartState, action: any): CartState {
+//   switch (action.type) {
+//     case 'ADD_ITEM':
+//       // Llama a la acción para agregar el ítem
+//       addItem(action.payload);
+//       return state;
+//     case 'REMOVE_ITEM':
+//       // Llama a la acción para eliminar el ítem
+//       removeItem(action.payload);
+//       return state;
+//     default:
+//       return state;
+//   }
+// }
