@@ -99,7 +99,6 @@ export class AppComponent implements AfterViewInit {
       this.isLoginVisible = true;
     } else {
       this.logout()
-      console.log('autenticado')
       this.isLoginVisible = false;
     }
   }
@@ -121,11 +120,9 @@ export class AppComponent implements AfterViewInit {
   handleCatalogClick() {
     if (!this.isAuthenticated) {
       this.showLogin();
-      console.log('NO autenticado')
     } else {
       this.router.navigate(['products']);
       this.isLoginVisible = true;
-      console.log('Autenticado')
     }
   }
 

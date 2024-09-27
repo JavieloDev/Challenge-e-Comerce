@@ -34,7 +34,6 @@ export class ProductDetailComponent implements OnInit {
 
     this.route.queryParamMap.subscribe(queryParams => {
       this.quantity = +queryParams.get('quantity')!;
-      console.log(`Cantidad deseada para comprar: ${this.quantity}`);
     });
 
     this.loadProduct(this.productId);
@@ -68,7 +67,6 @@ export class ProductDetailComponent implements OnInit {
     const currentCart = this.cartService.getCartItems();
     if (product) {
       this.notificationService.showNotification(`${product.title} ha sido agregado al carrito.`);
-      console.log(`Agregando ${this.quantity} ${product.title} al carrito`);
     }
   }
 

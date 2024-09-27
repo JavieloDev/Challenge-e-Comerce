@@ -46,7 +46,6 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     this.loadProducts();
     this.menuOpen = this.menuServise.isMenuOpen();
-    console.log(this.menuOpen)
   }
 
   ngAfterViewInit() {
