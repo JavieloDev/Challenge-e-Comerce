@@ -123,6 +123,7 @@ export class AppComponent implements AfterViewInit {
     } else {
       this.router.navigate(['products']);
       this.isLoginVisible = true;
+    //   cambio
     }
   }
 
